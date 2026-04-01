@@ -128,7 +128,7 @@ function App() {
       id: 1,
       name: 'Guilherme Vieira',
       role: 'CEO & Especialista Sênior',
-      description: 'Mais de 12 anos de experiência no mercado de programas de fidelidade. Especialista em estratégias de acúmulo acelerado e resgates de alto valor.',
+      description: 'Mais de 5 anos de experiência no mercado de programas de fidelidade. Especialista em estratégias de acúmulo acelerado e resgates de alto valor.',
       image: '/images/guilherme-vieira.jpeg',
       whatsapp: 'https://wa.me/5547997202400?text=Olá%20Guilherme%20gostaria%20de%20saber%20mais'
     },
