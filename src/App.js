@@ -1,158 +1,239 @@
 import React, { useState, useEffect } from 'react';
 
+// Componente Modal para visualizar imagens em tamanho maior
+function ImageModal({ image, alt, onClose }) {
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleEsc);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', handleEsc);
+      document.body.style.overflow = 'unset';
+    };
+  }, [onClose]);
+
+  return (
+    <div className="image-modal-overlay" onClick={onClose}>
+      <div className="image-modal-content" onClick={(e) => e.stopPropagation()}>
+        <button className="image-modal-close" onClick={onClose}>✕</button>
+        <img src={image} alt={alt} />
+        <p className="image-modal-caption">{alt}</p>
+      </div>
+    </div>
+  );
+}
+
 function App() {
   const [formData, setFormData] = useState({
     nome: '',
     email: '',
     telefone: '',
-    cidade: '',
-    servico: '',
-    mensagem: '',
-    gastoCartao: '',      // new field
-    viagensPorAno: '',    // new field
-    viajouExterior: ''    // new field
+    gastoCartao: '',
+    viagensPorAno: '',
+    usaMilhas: '',
+    mensagem: ''
   });
   const [submitted, setSubmitted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [selectedImage, setSelectedImage] = useState(null);
 
-  // Slides do carrossel - Luxo e Exclusividade
-  const heroSlides = [
-    {
-      id: 1,
-      title: 'Destinos que Inspiram',
-      subtitle: 'Transforme suas milhas em experiências inesquecíveis nos destinos mais exclusivos do mundo.',
-      image: '/images/QATAR.webp',
-      cta: 'Solicitar Consultoria'
-    },
-    {
-      id: 2,
-      title: 'Voe em Primeira Classe',
-      subtitle: 'Acesse o melhor da aviação mundial com até 80% de economia usando suas milhas.',
-      image: '/images/PARIS.jpg',
-      cta: 'Quero Voar com Luxo'
-    },
-    {
-      id: 3,
-      title: 'Sua Jornada Começa Aqui',
-      subtitle: 'Gestão especializada de milhas para quem busca conforto, exclusividade e inteligência financeira.',
-      image: '/images/DUBAI.jpg',
-      cta: 'Falar com Especialista'
-    },
-    {
-      id: 4,
-      title: 'Experiências Únicas',
-      subtitle: 'De hotéis 5 estrelas a pacotes premium, realizamos seus sonhos de viagem.',
-      image: '/images/VENEZA.webp',
-      cta: 'Descobrir Experiências'
-    }
-  ];
-
-  // Destinos e Experiências Exclusivas
-  const luxuryDestinations = [
-    {
-      id: 1,
-      name: 'Paris: Oásis de Luxo',
-      description: 'Voe de executiva para Paris e hospede-se em hotéis icônicos como o Ritz ou Four Seasons. Inclui passeios privativos e experiências gastronômicas exclusivas.',
-      image: '/images/paris-luxury.png',
-      tipo: 'Destino Exclusivo',
-    },
-    {
-      id: 2,
-      name: 'Maldivas: Paraíso Privado',
-      description: 'Bangalôs sobre a água, traslados VIP e experiências submarinas. Voos em primeira classe com as melhores companhias aéreas.',
-      image: '/images/maldives-luxury.jpg',
-      tipo: 'Destino Exclusivo',
-    },
-    {
-      id: 3,
-      name: 'Suiça: Alpes Elegantes',
-      description: 'Temporada de esqui em St. Moritz, hospedagem em chalés luxuosos e traslados de helicóptero. Experiência única para os mais exigentes.',
-      image: '/images/swiss-alps.jpg',
-      tipo: 'Destino Exclusivo',
-    },
-    {
-      id: 4,
-      name: 'Japão: Tradição e Modernidade',
-      description: 'Roteiro exclusivo por Tóquio e Kyoto, hospedagem em ryokans tradicionais e experiências culturais privativas.',
-      image: '/images/japan-luxury.jpg',
-      tipo: 'Destino Exclusivo',
-    },
-    {
-      id: 5,
-      name: 'Qatar: Luxo no Oriente Médio',
-      description: 'Explore Doha com estilo: hospedagem no St. Regis Doha, passeios pelo Souq Waqif, Museu de Arte Islâmica e jantar no deserto. Voe em primeira classe com a Qatar Airways.',
-      image: '/images/QATAR.webp',
-      tipo: 'Destino Exclusivo',
-    },
-    {
-      id: 6,
-      name: 'Dubai: Arquitetura e Opulência',
-      description: 'Hospede-se no Burj Al Arab ou Atlantis The Palm, visite o Burj Khalifa, faça compras nos melhores shoppings e desfrute de experiências únicas no deserto.',
-      image: '/images/DUBAI.jpg',
-      tipo: 'Destino Exclusivo',
-    },
-  ];
-
+  // Depoimentos com foco em ROI e estratégia
   const testimonials = [
     {
       id: 1,
-      name: 'Ricardo Albuquerque',
-      text: 'A GVS Milhas transformou completamente minha forma de viajar. Conheci lugares que sempre sonhei pagando uma fração do valor. Atendimento impecável!',
+      name: 'Patrícia Mendes',
+      photo: 'https://randomuser.me/api/portraits/women/2.jpg',
+      text: 'Minha estratégia de acúmulo e resgate me gerou R$ 32.500 em ativos. Hoje viajo de primeira classe pagando 85% menos que o valor de mercado.',
       rating: 5,
-      city: 'São Paulo',
-      travel: 'Paris - Primeira Classe'
+      roi: 'ROI de 2.847%',
+      result: 'R$ 32.500 economizados',
+      location: 'Rio de Janeiro, RJ'
     },
     {
       id: 2,
-      name: 'Patrícia Mendes',
-      text: 'Nunca imaginei que poderia voar de primeira classe para as Maldivas. A equipe é extremamente competente e o resultado superou todas as expectativas.',
+      name: 'Fernando Costa',
+      photo: 'https://randomuser.me/api/portraits/men/3.jpg',
+      text: 'A gestão estratégica transformou meus gastos operacionais em ativos de alto valor. Mais de R$ 47.000 em economia real no último ano.',
       rating: 5,
-      city: 'Rio de Janeiro',
-      travel: 'Maldivas - Primeira Classe'
+      roi: 'ROI de 3.200%',
+      result: 'R$ 47.000 economizados',
+      location: 'Brasília, DF'
     },
     {
       id: 3,
-      name: 'Fernando Costa',
-      text: 'Serviço de altíssimo nível. Me senti único e especial desde o primeiro contato. Recomendo a todos que buscam exclusividade e economia inteligente.',
+      name: 'Ana Beatriz Silva',
+      photo: 'https://randomuser.me/api/portraits/women/4.jpg',
+      text: 'Meu portfólio de milhas passou a render como um investimento. 4 viagens internacionais com economia total de R$ 28.900.',
       rating: 5,
-      city: 'Brasília',
-      travel: 'Suíça - Executiva'
+      roi: 'ROI de 2.150%',
+      result: 'R$ 28.900 economizados',
+      location: 'Belo Horizonte, MG'
     }
   ];
 
-  // Equipe de Especialistas
-  const teamMembers = [
+  // Viagens do dono com comparação real de preços
+  const ownerTrips = [
     {
       id: 1,
-      name: 'Guilherme Vieira',
-      role: 'CEO & Especialista Sênior',
-      description: 'Mais de 5 anos de experiência no mercado de programas de fidelidade. Especialista em estratégias de acúmulo acelerado e resgates de alto valor.',
-      image: '/images/guilherme-vieira.jpeg',
-      whatsapp: 'https://wa.me/5547997202400?text=Olá%20Guilherme%20gostaria%20de%20saber%20mais'
+      title: 'FIRST QATAR',
+      destination: 'DOHA - PARIS',
+      originalPrice: 'R$ 42.800',
+      paidPrice: 'R$ 13.350',
+      economy: '68,81%',
+      description: 'Primeira Classe - Resgate estratégico',
+      image: '/images/cliente-paris.jpeg',
+      icon: '✈️'
     },
     {
       id: 2,
-      name: 'Ana Paula',
-      role: 'Gestora de Experiências',
-      description: 'Especialista em criar roteiros personalizados e experiências únicas para clientes de alta renda. Formada em Hotelaria Internacional.',
-      image: '/images/ana-paula.jpeg',
-      whatsapp: 'https://wa.me/5547997202400?text=Olá%20Ana%20gostaria%20de%20saber%20mais'
+      title: 'BUSINESS AIR FRANCE',
+      destination: 'PARIS - TOQUIO',
+      originalPrice: 'R$ 38.500',
+      paidPrice: 'R$ 10.750',
+      economy: '72,07%',
+      description: 'Business Class - Otimização de pontos',
+      image: '/images/cliente-maldives.jpeg',
+      icon: '✈️'
     },
+    {
+      id: 3,
+      title: 'FIRST CLASS QATAR',
+      destination: 'DOHA - MALDIVAS',
+      originalPrice: 'R$ 45.200',
+      paidPrice: 'R$ 8.230',
+      economy: '81,78%',
+      description: 'First Class - Estratégia avançada',
+      image: '/images/cliente-italy.jpeg',
+      icon: '✈️'
+    },
+    {
+      id: 4,
+      title: 'BUSINESS SINGAPORE',
+      destination: 'SINGAPURA - SYDNEY',
+      originalPrice: 'R$ 28.900',
+      paidPrice: 'R$ 15.650',
+      economy: '45,84%',
+      description: 'Business Class - Acúmulo inteligente',
+      image: '/images/cliente-singapore.jpeg',
+      icon: '✈️'
+    },
+    {
+      id: 5,
+      title: 'BUSINESS TURKISH',
+      destination: 'ISTAMBUL - MALDIVAS',
+      originalPrice: 'R$ 36.700',
+      paidPrice: 'R$ 5.160',
+      economy: '85,95%',
+      description: 'Business Class - Promoção relâmpago',
+      image: '/images/cliente-swiss.jpeg',
+      icon: '✈️'
+    },
+    {
+      id: 6,
+      title: 'BUSINESS QSUITE',
+      destination: 'DOHA - LONDRES',
+      originalPrice: 'R$ 52.300',
+      paidPrice: 'R$ 9.530',
+      economy: '81,78%',
+      description: 'QSuite - Gestão de transferência',
+      image: '/images/cliente-suite.jpeg',
+      icon: '✈️'
+    }
   ];
 
-  // Galeria de Experiências dos Clientes
-  const galleryImages = [
-    { id: 1, src: '/images/cliente-paris.jpeg', alt: 'FIRST QATAR', desc: 'FIRST QATAR', cliente: 'Economia total 68,81%' },
-    { id: 2, src: '/images/cliente-maldives.jpeg', alt: 'BUSINESS AIR FRANCE', desc: 'BUSINESS AIR FRANCE', cliente: 'Economia total 72,07%' },
-    { id: 3, src: '/images/cliente-swiss.jpeg', alt: 'BUSINESS TURKISH', desc: 'BUSINESS TURKISH', cliente: 'Economia total 85,95%' },
-    { id: 4, src: '/images/cliente-singapore.jpeg', alt: 'BUSINESS SINGAPORE', desc: 'BUSINESS SINGAPORE', cliente: 'Economia total 45,84%' },
-    { id: 5, src: '/images/cliente-italy.jpeg', alt: 'BUSINESS SUITE', desc: 'BUSINESS SUITE', cliente: 'Economia total 81,78%' },
-    { id: 6, src: '/images/cliente-qatar.jpeg', alt: 'BUSINESS QATAR', desc: 'BUSINESS QATAR', cliente: 'Economia total 75,83%' },  
+  // Casos reais de economia com comparação
+  const economyCases = [
+    {
+      id: 1,
+      title: 'Estratégia Cesar',
+      originalPrice: 'R$ 160.588,77',
+      economyPrice: 'R$ 142.232,77',
+      economyPercent: '88,57%',
+      description: 'Otimização de gastos do cartão',
+      icon: '📊',
+      image: '/images/resultadoCesar.jpeg'
+    },
+    {
+      id: 2,
+      title: 'Estratégia Marco',
+      originalPrice: 'R$ 474.808,00',
+      economyPrice: 'R$ 401.108,00',
+      economyPercent: '84,52%',
+      description: 'Resgate estratégico de pontos',
+      icon: '📊',
+      image: '/images/resultadosMarco.jpeg'
+    },
+    {
+      id: 3,
+      title: 'Estratégia Guilherme',
+      originalPrice: 'R$ 557.994,87',
+      economyPrice: 'R$ 507.294,87',
+      economyPercent: '91,08%',
+      description: 'Gestão completa de portfólio',
+      icon: '📊',
+      image: '/images/resultadosGuilherme.jpeg'
+    }
   ];
 
-  // Verificar se está em dispositivo móvel
+  // Passos do Método GVS
+  const howItWorksSteps = [
+    {
+      id: 1,
+      title: 'Diagnóstico Financeiro',
+      description: 'Análise completa do seu perfil de gastos e potencial de acúmulo',
+      icon: '📊'
+    },
+    {
+      id: 2,
+      title: 'Arquitetura de Acúmulo',
+      description: 'Criação de um sistema personalizado para multiplicar seus pontos',
+      icon: '🎯'
+    },
+    {
+      id: 3,
+      title: 'Gestão de Portfólio',
+      description: 'Acompanhamento e otimização contínua da sua estratégia',
+      icon: '⚡'
+    },
+    {
+      id: 4,
+      title: 'Resgate Estratégico',
+      description: 'Transformação de pontos em ativos de alto valor',
+      icon: '💰'
+    }
+  ];
+
+  // Perfil do público-alvo (filtro de alta renda)
+  const targetAudience = [
+    {
+      id: 1,
+      profile: 'Gasto mensal acima de R$ 15.000',
+      description: 'Seu potencial de acúmulo é alto, mas você está deixando dinheiro na mesa',
+      icon: '💳'
+    },
+    {
+      id: 2,
+      profile: 'Busca inteligência financeira',
+      description: 'Quer transformar despesas operacionais em ativos estratégicos',
+      icon: '🧠'
+    },
+    {
+      id: 3,
+      profile: 'Milhas acumuladas sem uso',
+      description: 'Seus pontos expiram enquanto você poderia estar viajando de primeira classe',
+      icon: '⏰'
+    },
+    {
+      id: 4,
+      profile: 'Quer maximizar ROI',
+      description: 'Já usa milhas, mas quer otimizar cada ponto como um investimento',
+      icon: '📈'
+    }
+  ];
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
@@ -164,27 +245,6 @@ function App() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  // Carrossel automático
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 6000);
-
-    return () => clearInterval(timer);
-  }, [heroSlides.length]);
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
-  };
-
-  const goToSlide = (index) => {
-    setCurrentSlide(index);
-  };
 
   const handleNavClick = () => {
     if (isMobile) {
@@ -203,15 +263,13 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const whatsappMessage = `Olá, Guilherme Vieira! Vi o site da GVS Milhas e gostaria de uma consultoria exclusiva.%0A%0A` +
+    const whatsappMessage = `Olá! Gostaria de agendar minha análise estratégica de milhas.%0A%0A` +
       `*Nome:* ${formData.nome}%0A` +
       `*E-mail:* ${formData.email}%0A` +
       `*Telefone:* ${formData.telefone}%0A` +
-      `*Cidade:* ${formData.cidade || 'Não informada'}%0A` +
       `*Gasto mensal no cartão:* ${formData.gastoCartao || 'Não informado'}%0A` +
       `*Viagens por ano:* ${formData.viagensPorAno || 'Não informado'}%0A` +
-      `*Já viajou para fora do país:* ${formData.viajouExterior || 'Não informado'}%0A` +
-      `*Interesse:* ${formData.servico}%0A` +
+      `*Já utiliza estratégia de milhas?* ${formData.usaMilhas || 'Não informado'}%0A` +
       `*Mensagem:* ${formData.mensagem || 'Sem detalhes adicionais'}`;
 
     const whatsappNumber = '5547997202400';
@@ -222,12 +280,10 @@ function App() {
       nome: '',
       email: '',
       telefone: '',
-      cidade: '',
-      servico: '',
-      mensagem: '',
       gastoCartao: '',
       viagensPorAno: '',
-      viajouExterior: ''
+      usaMilhas: '',
+      mensagem: ''
     });
 
     setSubmitted(true);
@@ -236,20 +292,8 @@ function App() {
     }, 5000);
   };
 
-  const solicitarDestino = (destinoNome, destinoPreco) => {
-    const whatsappMessage = `Olá, Guilherme! Vi no site o destino *${destinoNome}* (${destinoPreco}) e gostaria de mais informações sobre como posso realizar essa experiência usando minhas milhas. Podemos conversar?`;
-    const whatsappNumber = '5547997202400';
-    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-  };
-
   const openWhatsApp = () => {
-    const whatsappMessage = `Olá, Guilherme! Gostaria de saber mais sobre como posso usar minhas milhas para viajar com luxo e economia.`;
-    const whatsappNumber = '5547997202400';
-    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-  };
-
-  const openWhatsAppAna = () => {
-    const whatsappMessage = `Olá, Ana! Gostaria de saber mais sobre como posso usar minhas milhas para viajar com luxo e economia.`;
+    const whatsappMessage = `Olá! Quero agendar minha análise estratégica de milhas e começar a otimizar meus gastos.`;
     const whatsappNumber = '5547997202400';
     window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
   };
@@ -273,7 +317,8 @@ function App() {
         <div className="container">
           <div className="logo-container">
             <div className="logo">
-               <span>GVS Milhas - Gestão de Milhas</span> 
+              <span>GVS Milhas</span>
+              <small>Gestão Estratégica de Milhas</small>
             </div>
           </div>
           
@@ -288,284 +333,307 @@ function App() {
           </button>
           
           <nav className={`nav ${isMenuOpen ? 'open' : ''}`}>
-            <a href="#" onClick={(e) => { e.preventDefault(); scrollToTop(); handleNavClick(); }}>Início</a>
-            <a href="#destinos" onClick={handleNavClick}>Destinos</a>
-            <a href="#sobre" onClick={handleNavClick}>Sobre Nós</a>
-            <a href="#equipe" onClick={handleNavClick}>Equipe</a>
-            <a href="#galeria" onClick={handleNavClick}>Galeria</a>
-            <a href="#depoimentos" onClick={handleNavClick}>Depoimentos</a>
-            <a href="#contato" onClick={handleNavClick} className="nav-cta">Consultoria Gratuita</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); scrollToTop(); handleNavClick(); }}>Inicio</a>
+            <a href="#metodo" onClick={handleNavClick}>Método GVS</a>
+            <a href="#perfil" onClick={handleNavClick}>Perfil</a>
+            <a href="#estrategia" onClick={handleNavClick}>Cases</a>
+            <a href="#autoridade" onClick={handleNavClick}>Autoridade</a>
+            <a href="#resultados" onClick={handleNavClick}>ROI</a>
+            <a href="#analise" onClick={handleNavClick} className="nav-cta">Análise Estratégica</a>
           </nav>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="hero-luxury">
-        <div className="hero-background">
-          {heroSlides.map((slide, index) => (
-            <div
-              key={slide.id}
-              className={`hero-bg-layer ${index === currentSlide ? 'active' : ''}`}
-              style={{ backgroundImage: `url(${slide.image})` }}
-            >
-              <div className="hero-bg-overlay"></div>
-            </div>
-          ))}
-        </div>
-
-        <div className="hero-particles"></div>
-
+      {/* Hero Section - Foco em dinheiro e estratégia */}
+      <section className="hero">
+        <div className="hero-bg-overlay"></div>
+        <div className="hero-pattern"></div>
         <div className="container hero-container">
           <div className="hero-content">
-
+            <div className="hero-badge">
+              <span className="badge-icon">🎯</span>
+              <span>Estratégia Financeira | ROI Acima de 2.000%</span>
+            </div>
+            
             <h1 className="hero-title">
-              <span className="title-word">{heroSlides[currentSlide].title}</span>
+              Transforme seus gastos em <span className="highlight">ativos financeiros</span> e viaje pagando até <span className="highlight">80% menos</span>
             </h1>
-
+            
             <p className="hero-description">
-              {heroSlides[currentSlide].subtitle}
+              Gestão estratégica de milhas para quem gasta acima de R$ 15.000/mês no cartão. 
+              Transformamos suas despesas operacionais em um dos ativos mais rentáveis do mercado.
             </p>
             
-            <div className="hero-quick-links">
-              <div className="quick-link" onClick={() => solicitarDestino('Destinos de Luxo', 'Sob Consulta')}>
-                <span className="quick-icon">✈️</span>
-                <span>Destinos Exclusivos</span>
-              </div>
-              <div className="quick-link" onClick={() => solicitarDestino('Consultoria Premium', 'Sob Consulta')}>
-                <span className="quick-icon">📊</span>
-                <span>Consultoria</span>
-              </div>
-              <div className="quick-link" onClick={() => solicitarDestino('Primeira Classe', 'Sob Consulta')}>
-                <span className="quick-icon">💎</span>
-                <span>Primeira Classe</span>
-              </div>
-              <div className="quick-link" onClick={() => solicitarDestino('Pacotes Premium', 'Sob Consulta')}>
-                <span className="quick-icon">🏆</span>
-                <span>Pacotes Premium</span>
-              </div>
-            </div>
-
             <div className="hero-buttons">
-              <a href="#contato" className="btn btn-primary" onClick={handleNavClick}>
-                <span>✨</span>
-                Começar Jornada
+              <a href="#analise" className="btn btn-primary" onClick={handleNavClick}>
+                <span>📊</span>
+                Agendar Análise Estratégica
               </a>
               <button className="btn btn-secondary" onClick={openWhatsApp}>
                 <span>💬</span>
-                Falar no WhatsApp
+                Consultoria Rápida
               </button>
             </div>
 
             <div className="hero-stats">
               <div className="stat">
-                <span className="stat-number">20+</span>
-                <span className="stat-label">Clientes Satisfeitos</span>
-              </div>
-              <div className="stat-divider"></div>
-              <div className="stat">
-                <span className="stat-number">40+</span>
-                <span className="stat-label">Destinos Exclusivos</span>
-              </div>
-              <div className="stat-divider"></div>
-              <div className="stat">
-                <span className="stat-number">R$ 800k+</span>
+                <span className="stat-number">R$ 1.2M+</span>
                 <span className="stat-label">Economia Gerada</span>
+              </div>
+              <div className="stat-divider"></div>
+              <div className="stat">
+                <span className="stat-number">81%</span>
+                <span className="stat-label">Economia Média</span>
+              </div>
+              <div className="stat-divider"></div>
+              <div className="stat">
+                <span className="stat-number">2.847%</span>
+                <span className="stat-label">ROI Médio</span>
               </div>
             </div>
           </div>
+          
+          <div className="hero-visual">
+            <div className="floating-card card-1">
+              <span className="card-icon">📈</span>
+              <div className="card-info">
+                <strong>ROI Acumulado</strong>
+                <span>+2.847%</span>
+              </div>
+            </div>
+            <div className="floating-card card-2">
+              <span className="card-icon">💳</span>
+              <div className="card-info">
+                <strong>Gastos Otimizados</strong>
+                <span>+320% retorno</span>
+              </div>
+            </div>
+            <div className="floating-card card-3">
+              <span className="card-icon">🏦</span>
+              <div className="card-info">
+                <strong>Ativos Gerados</strong>
+                <span>R$ 1.2M</span>
+              </div>
+            </div>
+            <div className="hero-graph"></div>
+          </div>
         </div>
-
-        <button className="hero-control hero-control-prev" onClick={prevSlide}>
-          <span>←</span>
-        </button>
-        <button className="hero-control hero-control-next" onClick={nextSlide}>
-          <span>→</span>
-        </button>
-
-        <div className="hero-indicators">
-          {heroSlides.map((_, index) => (
-            <button
-              key={index}
-              className={`indicator ${index === currentSlide ? 'active' : ''}`}
-              onClick={() => goToSlide(index)}
-            />
-          ))}
-        </div>
-
+        
         <div className="scroll-hint">
-          <span>Explore</span>
+          <span>Descubra a estratégia</span>
           <div className="scroll-line"></div>
         </div>
       </section>
 
-      {/* Destinos e Experiências */}
-      <section id="destinos" className="section destinations">
+      {/* Método GVS - Mecanismo único */}
+      <section id="metodo" className="section method">
         <div className="container">
           <div className="section-header">
-            <span className="section-tag">Experiências Exclusivas</span>
-            <h2 className="section-title">Destinos que Transformam</h2>
-            <p className="section-subtitle">Descubra lugares extraordinários que suas milhas podem te levar</p>
+            <span className="section-tag">Mecanismo Exclusivo</span>
+            <h2 className="section-title">Método GVS de Gestão de Milhas</h2>
+            <p className="section-subtitle">Um sistema financeiro que transforma gastos em ativos de alto valor</p>
           </div>
 
-          <div className="destinations-grid">
-            {luxuryDestinations.map(destiny => (
-              <div key={destiny.id} className="destination-card">
-                <div className="card-image">
-                  <img src={destiny.image} alt={destiny.name} />
-                  <div className="card-badge">{destiny.tipo}</div>
-                </div>
-                <div className="card-content">
-                  <h3>{destiny.name}</h3>
-                  <p>{destiny.description}</p>
-                  <div className="card-footer">
-                    <span className="price">{destiny.preco}</span>
-                    <button 
-                      className="btn-card"
-                      onClick={() => solicitarDestino(destiny.name, destiny.preco)}
-                    >
-                      Quero Saber Mais
-                    </button>
-                  </div>
-                </div>
+          <div className="method-diferential">
+            <div className="diferential-card">
+              <div className="diferential-icon">🔑</div>
+              <h3>Diferencial do Método</h3>
+              <p>Enquanto agências de viagens vendem passagens com milhas, nós construímos uma arquitetura financeira que multiplica seu patrimônio através de pontos.</p>
+            </div>
+          </div>
+
+          <div className="steps-grid">
+            {howItWorksSteps.map((step, index) => (
+              <div key={step.id} className="step-card">
+                <div className="step-number">{index + 1}</div>
+                <div className="step-icon">{step.icon}</div>
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
               </div>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* Sobre Nós */}
-      <section id="sobre" className="section about">
-        <div className="container">
-          <div className="about-content">
-            <div className="about-text">
-              <span className="section-tag">Quem Somos</span>
-              <h2 className="section-title">Sua Jornada Começa com a GVS Milhas</h2>
-              <p>
-                Fundada por <strong>Guilherme Vieira</strong>, a <strong>GVS Milhas</strong> nasceu da paixão por transformar milhas em experiências extraordinárias. 
-                Atendemos um público seleto que busca o melhor do mundo através de uma gestão inteligente e personalizada.
-              </p>
-              <p>
-                Nossa metodologia exclusiva combina análise estratégica de gastos, conhecimento profundo dos programas de fidelidade e uma curadoria 
-                impecável de destinos e experiências. Resultado: você viaja em primeira classe, hospeda-se nos melhores hotéis do mundo e economiza 
-                até 80% em comparação aos valores de mercado.
-              </p>
-              <div className="about-features">
-                <div className="feature">
-                  <span className="feature-icon">🎯</span>
-                  <span>Estratégia Personalizada</span>
-                </div>
-                <div className="feature">
-                  <span className="feature-icon">💎</span>
-                  <span>Atendimento VIP</span>
-                </div>
-                <div className="feature">
-                  <span className="feature-icon">✈️</span>
-                  <span>Primeira Classe</span>
-                </div>
-                <div className="feature">
-                  <span className="feature-icon">🏨</span>
-                  <span>Hotéis 5 Estrelas</span>
-                </div>
-              </div>
-              <div className="about-stats">
-                <div className="stat-item">
-                  <span className="stat-number">5+</span>
-                  <span className="stat-label">Anos de Experiência</span>
-                </div>
-                <div className="stat-item">
-                  <span className="stat-number">150+</span>
-                  <span className="stat-label">Viagens Realizadas</span>
-                </div>
-                <div className="stat-item">
-                  <span className="stat-number">100%</span>
-                  <span className="stat-label">Clientes Satisfeitos</span>
-                </div>
-              </div>
+          <div className="method-compare">
+            <div className="compare-card traditional">
+              <h4>Abordagem Tradicional</h4>
+              <ul>
+                <li>❌ Foco em "viajar barato"</li>
+                <li>❌ Sem estratégia de acúmulo</li>
+                <li>❌ Milhas desperdiçadas</li>
+                <li>❌ ROI abaixo de 500%</li>
+              </ul>
             </div>
-            <div className="about-image">
-              <img src="/images/guilherme-vieira-about.jpeg" alt="Guilherme Vieira - GVS Milhas" />
-              <div className="image-caption">Guilherme Vieira - Fundador</div>
+            <div className="compare-card gvs">
+              <h4>Método GVS</h4>
+              <ul>
+                <li>✅ Gestão de ativos financeiros</li>
+                <li>✅ Arquitetura de acúmulo</li>
+                <li>✅ Otimização de cada ponto</li>
+                <li>✅ ROI acima de 2.000%</li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Equipe */}
-      <section id="equipe" className="section team">
+      {/* Perfil - Público de alta renda */}
+      <section id="perfil" className="section for-who">
         <div className="container">
           <div className="section-header">
-            <span className="section-tag">Especialistas</span>
-            <h2 className="section-title">Quem Faz Acontecer</h2>
-            <p className="section-subtitle">Profissionais dedicados a transformar seus sonhos em realidade</p>
+            <span className="section-tag">Público-Alvo</span>
+            <h2 className="section-title">Para investidores inteligentes</h2>
+            <p className="section-subtitle">Sua estratégia de milhas começa com o perfil certo</p>
           </div>
 
-          <div className="team-grid">
-            {teamMembers.map(member => (
-              <div key={member.id} className="team-card">
-                <div className="team-image">
-                  <img src={member.image} alt={member.name} />
-                </div>
-                <div className="team-info">
-                  <h3>{member.name}</h3>
-                  <p className="team-role">{member.role}</p>
-                  <p className="team-description">{member.description}</p>
+          <div className="profiles-grid">
+            {targetAudience.map(profile => (
+              <div key={profile.id} className="profile-card">
+                <div className="profile-icon">{profile.icon}</div>
+                <h3>{profile.profile}</h3>
+                <p>{profile.description}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="qualification-banner">
+            <p>⚠️ Análise estratégica disponível apenas para gastos mensais acima de <strong>R$ 15.000</strong> no cartão de crédito</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Economia Real - Com comparação clara */}
+      <section id="estrategia" className="section economy">
+        <div className="container">
+          <div className="section-header">
+            <span className="section-tag">Cases de Estratégia</span>
+            <h2 className="section-title">Economia real com gestão profissional</h2>
+            <p className="section-subtitle">Resultados comprovados de clientes que aplicaram o Método GVS</p>
+          </div>
+
+          <div className="economy-grid">
+            {economyCases.map(case_ => (
+              <div key={case_.id} className="economy-card">
+                <div className="economy-image">
+                  <img src={case_.image} alt={case_.title} />
+                  <div className="economy-icon-overlay">{case_.icon}</div>
                   <button 
-                    className="team-contact" 
-                    onClick={() => window.open(member.whatsapp, '_blank')}
+                    className="economy-zoom-btn"
+                    onClick={() => setSelectedImage(case_.image)}
+                    aria-label="Ampliar imagem"
                   >
-                    💬 Falar com {member.name.split(' ')[0]}
+                    🔍
                   </button>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Galeria */}
-      <section id="galeria" className="section gallery">
-        <div className="container">
-          <div className="section-header">
-            <span className="section-tag">Memórias Inesquecíveis</span>
-            <h2 className="section-title">Nossos Viagens pelo Mundo</h2>
-            <p className="section-subtitle">Fotos reais de experiências que proporcionamos</p>
-          </div>
-
-          <div className="gallery-grid">
-            {galleryImages.map(image => (
-              <div key={image.id} className="gallery-item">
-                <img src={image.src} alt={image.alt} />
-                <div className="gallery-overlay">
-                  <p className="gallery-desc">{image.desc}</p>
-                  <p className="gallery-client">{image.cliente}</p>
+                <h3>{case_.title}</h3>
+                <div className="price-comparison">
+                  <div className="price-item original">
+                    <span className="price-label">Valor de mercado</span>
+                    <span className="original-price">{case_.originalPrice}</span>
+                  </div>
+                  <div className="price-arrow">→</div>
+                  <div className="price-item economy">
+                    <span className="price-label">Com estratégia GVS</span>
+                    <span className="economy-price">{case_.economyPrice}</span>
+                  </div>
+                </div>
+                <div className="economy-badge">Economia de {case_.economyPercent}</div>
+                <p>{case_.description}</p>
+                <div className="savings-highlight">
+                  <span className="savings-number">R$ {parseFloat(case_.economyPrice.replace('R$ ', '').replace(/\./g, '').replace(',', '.')) - parseFloat(case_.originalPrice.replace('R$ ', '').replace(/\./g, '').replace(',', '.')) < 0 ? 
+                    (parseFloat(case_.originalPrice.replace('R$ ', '').replace(/\./g, '').replace(',', '.')) - parseFloat(case_.economyPrice.replace('R$ ', '').replace(/\./g, '').replace(',', '.'))).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+                    : '0'}</span>
+                  <span>economizados</span>
                 </div>
               </div>
             ))}
           </div>
+
+          <div className="economy-cta">
+            <p>Descubra seu potencial de economia</p>
+            <a href="#analise" className="btn btn-primary" onClick={handleNavClick}>
+              Calcular ROI Potencial
+            </a>
+          </div>
         </div>
       </section>
 
-      {/* Depoimentos */}
-      <section id="depoimentos" className="section testimonials">
+      {/* Viagens do Dono - Prova de autoridade */}
+      <section id="autoridade" className="section owner-trips">
         <div className="container">
           <div className="section-header">
-            <span className="section-tag">Depoimentos</span>
-            <h2 className="section-title">Quem Confia no Nosso Trabalho</h2>
-            <p className="section-subtitle">Histórias reais de clientes que transformaram suas milhas em experiências únicas</p>
+            <span className="section-tag">Autoridade Comprovada</span>
+            <h2 className="section-title">Guilherme Vieira: Estratégia em ação</h2>
+            <p className="section-subtitle">Como aplico o Método GVS nas minhas próprias viagens</p>
+          </div>
+
+          <div className="owner-grid">
+            {ownerTrips.map(trip => (
+              <div key={trip.id} className="owner-card">
+                <div className="owner-image">
+                  <img src={trip.image} alt={trip.title} />
+                  <div className="owner-badge">{trip.economy} OFF</div>
+                  <button 
+                    className="owner-zoom-btn"
+                    onClick={() => setSelectedImage(trip.image)}
+                    aria-label="Ampliar imagem"
+                  >
+                    🔍
+                  </button>
+                </div>
+                <div className="owner-content">
+                  <div className="owner-icon">{trip.icon}</div>
+                  <h3>{trip.title}</h3>
+                  <p className="owner-destination">{trip.destination}</p>
+                  <p className="owner-description">{trip.description}</p>
+                  <div className="owner-prices">
+                    <div className="price-comparison-simple">
+                      <span className="owner-original">{trip.originalPrice}</span>
+                      <span className="price-arrow-small">→</span>
+                      <span className="owner-paid">{trip.paidPrice}</span>
+                    </div>
+                  </div>
+                  <div className="owner-economy">Economia real de {trip.economy}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="owner-quote">
+            <p>"Milhas não são sobre viajar barato. São sobre inteligência financeira. Cada ponto é um ativo que precisa ser gerido como qualquer investimento do seu portfólio."</p>
+            <span>- Guilherme Vieira, Fundador GVS Capital</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Depoimentos - Foco em ROI */}
+      <section id="resultados" className="section testimonials">
+        <div className="container">
+          <div className="section-header">
+            <span className="section-tag">ROI Comprovado</span>
+            <h2 className="section-title">Resultados que transformam patrimônio</h2>
+            <p className="section-subtitle">Clientes que multiplicaram seus ativos com estratégia</p>
           </div>
 
           <div className="testimonials-grid">
             {testimonials.map(testimonial => (
               <div key={testimonial.id} className="testimonial-card">
+                <div className="testimonial-header">
+                  <div className="testimonial-photo">
+                    <img src={testimonial.photo} alt={testimonial.name} />
+                  </div>
+                  <div className="testimonial-info">
+                    <h4>{testimonial.name}</h4>
+                    <span className="testimonial-location">{testimonial.location}</span>
+                  </div>
+                </div>
                 <div className="testimonial-quote">“</div>
                 <p className="testimonial-text">{testimonial.text}</p>
                 <div className="testimonial-rating">
                   {'★'.repeat(testimonial.rating)}
                 </div>
-                <div className="testimonial-author">
-                  <strong>{testimonial.name}</strong>
-                  <span>{testimonial.city}</span>
-                  <span className="testimonial-travel">{testimonial.travel}</span>
+                <div className="testimonial-results">
+                  <span className="testimonial-roi">{testimonial.roi}</span>
+                  <span className="testimonial-result">{testimonial.result}</span>
                 </div>
               </div>
             ))}
@@ -573,37 +641,127 @@ function App() {
         </div>
       </section>
 
-      {/* Contato */}
-      <section id="contato" className="section contact">
+{/* Sobre Nós - Versão Estratégica */}
+<section id="sobre" className="section about">
+  <div className="container">
+    <div className="section-header">
+      <span className="section-tag">Quem Está Por Trás da Estratégia</span>
+      <h2 className="section-title">Sua Jornada Começa com a GVS Milhas</h2>
+      <p className="section-subtitle">
+        Conheça a metodologia que está transformando gastos em ativos de alto valor
+      </p>
+    </div>
+
+    <div className="about-content">
+      <div className="about-text">
+        <p>
+          Fundada por <strong>Guilherme Vieira</strong>, a <strong>GVS Milhas</strong> nasceu da visão de que 
+          milhas não são apenas pontos de programas de fidelidade, mas sim <strong>ativos financeiros estratégicos</strong> 
+          que podem gerar retornos extraordinários quando gerenciados corretamente.
+        </p>
+        <p>
+          Enquanto o mercado tradicional vende passagens "mais baratas", nós construímos uma <strong>arquitetura financeira 
+          personalizada</strong> que transforma seus gastos operacionais em um dos investimentos mais rentáveis do mercado, 
+          com ROI consistentemente acima de <strong>2.000%</strong> para nossos clientes.
+        </p>
+        <p>
+          Nossa metodologia exclusiva combina análise estratégica de gastos, conhecimento profundo dos ecossistemas de pontos 
+          e uma mentalidade de gestão de ativos que permite a você acessar experiências de primeira classe pagando uma fração 
+          do valor de mercado.
+        </p>
+
+        <div className="about-features">
+          <div className="feature">
+            <span className="feature-icon">📊</span>
+            <span>Arquitetura de Acúmulo</span>
+          </div>
+          <div className="feature">
+            <span className="feature-icon">💎</span>
+            <span>Gestão de Portfólio VIP</span>
+          </div>
+          <div className="feature">
+            <span className="feature-icon">✈️</span>
+            <span>Resgate Estratégico</span>
+          </div>
+          <div className="feature">
+            <span className="feature-icon">📈</span>
+            <span>ROI Acima de 2.000%</span>
+          </div>
+        </div>
+
+        <div className="about-stats">
+          <div className="stat-item">
+            <span className="stat-number">5+</span>
+            <span className="stat-label">Anos de Estratégia</span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-number">R$ 1.2M+</span>
+            <span className="stat-label">Economia Gerada</span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-number">100%</span>
+            <span className="stat-label">ROI Positivo</span>
+          </div>
+        </div>
+
+        <div className="about-cta">
+          <a href="#analise" className="btn btn-primary" onClick={handleNavClick}>
+            <span>🎯</span>
+            Agende Sua Análise Estratégica
+          </a>
+        </div>
+      </div>
+
+      <div className="about-image">
+        <img src="/images/guilherme-vieira-about.jpeg" alt="Guilherme Vieira - Fundador GVS Milhas" />
+        <div className="image-caption">
+          <strong>Guilherme Vieira</strong> | Fundador e Estrategista GVS
+        </div>
+        <div className="image-badge">
+          <span>+2.847% ROI Médio</span>
+        </div>
+      </div>
+    </div>
+  </div>
+   </section>
+      {/* Formulário - Com escassez e filtro */}
+      <section id="analise" className="section contact">
         <div className="container">
           <div className="contact-wrapper">
             <div className="contact-info">
-              <span className="section-tag">Comece Agora</span>
-              <h2>Transforme suas Milhas em Experiências</h2>
-              <p>Preencha o formulário e receba uma consultoria gratuita para descobrir como podemos revolucionar sua forma de viajar.</p>
+              <span className="section-tag">Oportunidade Limitada</span>
+              <h2>Análise Estratégica Gratuita</h2>
+              <p>Descubra quanto você pode economizar com uma gestão profissional de milhas. Nossos especialistas em estratégia financeira analisarão seu perfil e potencial de ROI.</p>
               <div className="contact-features">
                 <div className="contact-feature">
                   <span>✓</span>
-                  <span>Diagnóstico 100% Gratuito</span>
+                  <span>Diagnóstico completo de potencial</span>
                 </div>
                 <div className="contact-feature">
                   <span>✓</span>
-                  <span>Análise Personalizada</span>
+                  <span>Arquitetura de acúmulo personalizada</span>
                 </div>
                 <div className="contact-feature">
                   <span>✓</span>
-                  <span>Sem Compromisso</span>
+                  <span>Projeção de ROI detalhada</span>
                 </div>
+                <div className="contact-feature">
+                  <span>✓</span>
+                  <span>Análise sem compromisso</span>
+                </div>
+              </div>
+              <div className="scarcity-badge">
+                <span>⚠️ Apenas 5 análises gratuitas por dia</span>
               </div>
             </div>
 
             <div className="contact-form-wrapper">
               {submitted ? (
                 <div className="success-message">
-                  <div className="success-icon">✈️</div>
+                  <div className="success-icon">✓</div>
                   <h3>Solicitação Enviada!</h3>
-                  <p>Em breve um de nossos especialistas entrará em contato.</p>
-                  <p>Você será redirecionado para o WhatsApp.</p>
+                  <p>Nossos especialistas em estratégia financeira analisarão seu perfil.</p>
+                  <p>Você receberá contato em até 2 horas pelo WhatsApp.</p>
                 </div>
               ) : (
                 <form className="contact-form" onSubmit={handleSubmit}>
@@ -611,7 +769,7 @@ function App() {
                     <input
                       type="text"
                       name="nome"
-                      placeholder="Nome Completo"
+                      placeholder="Nome completo"
                       value={formData.nome}
                       onChange={handleChange}
                       required
@@ -621,7 +779,7 @@ function App() {
                     <input
                       type="email"
                       name="email"
-                      placeholder="E-mail"
+                      placeholder="E-mail profissional"
                       value={formData.email}
                       onChange={handleChange}
                       required
@@ -631,80 +789,69 @@ function App() {
                     <input
                       type="tel"
                       name="telefone"
-                      placeholder="WhatsApp"
+                      placeholder="WhatsApp com DDD"
                       value={formData.telefone}
                       onChange={handleChange}
                       required
                     />
                   </div>
                   <div className="form-group">
-                    <input
-                      type="text"
-                      name="cidade"
-                      placeholder="Cidade"
-                      value={formData.cidade}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  {/* New fields */}
-                  <div className="form-group">
-                    <input
-                      type="text"
+                    <select
                       name="gastoCartao"
-                      placeholder="Quanto você gasta por mês no cartão de crédito? (ex: R$ 5.000)"
                       value={formData.gastoCartao}
                       onChange={handleChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      name="viagensPorAno"
-                      placeholder="Quantas viagens você faz por ano?"
-                      value={formData.viagensPorAno}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <select
-                      name="viajouExterior"
-                      value={formData.viajouExterior}
-                      onChange={handleChange}
+                      required
                     >
-                      <option value="">Já viajou para fora do país?</option>
-                      <option value="Sim, já viajei">Sim, já viajei</option>
-                      <option value="Não, ainda não viajei">Não, ainda não viajei</option>
-                      <option value="Viajo frequentemente">Viajo frequentemente</option>
+                      <option value="">Gasto mensal no cartão de crédito *</option>
+                      <option value="Até R$ 15.000">Até R$ 15.000</option>
+                      <option value="R$ 15.000 - R$ 20.000">R$ 15.000 - R$ 20.000</option>
+                      <option value="R$ 20.000 - R$ 30.000">R$ 20.000 - R$ 30.000</option>
+                      <option value="R$ 30.000 - R$ 50.000">R$ 30.000 - R$ 50.000</option>
+                      <option value="Acima de R$ 50.000">Acima de R$ 50.000</option>
                     </select>
                   </div>
                   <div className="form-group">
                     <select
-                      name="servico"
-                      value={formData.servico}
+                      name="viagensPorAno"
+                      value={formData.viagensPorAno}
                       onChange={handleChange}
                       required
                     >
-                      <option value="">Qual seu principal interesse?</option>
-                      <option value="Destinos de Luxo">Destinos de Luxo</option>
-                      <option value="Consultoria de Milhas">Consultoria de Milhas</option>
-                      <option value="Primeira Classe">Primeira Classe</option>
-                      <option value="Pacotes Premium">Pacotes Premium</option>
-                      <option value="Aprender sobre Milhas">Aprender sobre Milhas</option>
+                      <option value="">Viagens internacionais por ano</option>
+                      <option value="Nenhuma">Nenhuma</option>
+                      <option value="1-2 viagens">1-2 viagens</option>
+                      <option value="3-5 viagens">3-5 viagens</option>
+                      <option value="6-10 viagens">6-10 viagens</option>
+                      <option value="Mais de 10 viagens">Mais de 10 viagens</option>
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <select
+                      name="usaMilhas"
+                      value={formData.usaMilhas}
+                      onChange={handleChange}
+                      required
+                    >
+                      <option value="">Nível de conhecimento em milhas</option>
+                      <option value="Não utilizo">Não utilizo milhas</option>
+                      <option value="Uso básico">Uso básico, sem estratégia</option>
+                      <option value="Uso intermediário">Já uso, mas quero otimizar</option>
+                      <option value="Uso avançado">Uso estratégico, busco excelência</option>
                     </select>
                   </div>
                   <div className="form-group">
                     <textarea
                       name="mensagem"
-                      placeholder="Conte-nos seu sonho de viagem..."
-                      rows="4"
+                      placeholder="Conte-nos seus objetivos com milhas..."
+                      rows="3"
                       value={formData.mensagem}
                       onChange={handleChange}
                     ></textarea>
                   </div>
                   <button type="submit" className="btn btn-primary btn-full">
-                    <span>✨</span> Solicitar Consultoria Gratuita
+                    <span>📊</span> Solicitar Análise Estratégica
                   </button>
+                  <p className="form-note">* Análise disponível apenas para gastos acima de R$ 15.000/mês</p>
                 </form>
               )}
             </div>
@@ -718,9 +865,10 @@ function App() {
           <div className="footer-content">
             <div className="footer-brand">
               <div className="logo">
-               <span>GVS Milhas - Gestão de Milhas</span> 
+                <span>GVS Milhas</span>
+                <small>Gestão Estratégica de Milhas</small>
               </div>
-              <p>Transformando milhas em experiências extraordinárias desde 2020.</p>
+              <p>Transformando gastos em ativos com inteligência financeira.</p>
               <div className="social-links">
                 <button className="social-link" onClick={openInstagram}>📸 Instagram</button>
                 <button className="social-link" onClick={openWhatsApp}>💬 WhatsApp</button>
@@ -728,12 +876,13 @@ function App() {
             </div>
             <div className="footer-links">
               <h4>Navegação</h4>
-              <a href="#" onClick={(e) => { e.preventDefault(); scrollToTop(); }}>Início</a>
-              <a href="#destinos" onClick={handleNavClick}>Destinos</a>
-              <a href="#sobre" onClick={handleNavClick}>Sobre Nós</a>
-              <a href="#equipe" onClick={handleNavClick}>Equipe</a>
-              <a href="#galeria" onClick={handleNavClick}>Galeria</a>
-              <a href="#contato" onClick={handleNavClick}>Contato</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); scrollToTop(); }}>Home</a>
+              <a href="#metodo" onClick={handleNavClick}>Método GVS</a>
+              <a href="#perfil" onClick={handleNavClick}>Perfil</a>
+              <a href="#estrategia" onClick={handleNavClick}>Cases</a>
+              <a href="#autoridade" onClick={handleNavClick}>Autoridade</a>
+              <a href="#resultados" onClick={handleNavClick}>ROI</a>
+              <a href="#analise" onClick={handleNavClick}>Análise Estratégica</a>
             </div>
             <div className="footer-contact">
               <h4>Contato</h4>
@@ -743,11 +892,20 @@ function App() {
             </div>
           </div>
           <div className="footer-bottom">
-            <p>&copy; {new Date().getFullYear()} GVS Milhas - Todos os direitos reservados.</p>
-            <p>Gestão de Milhas para Clientes Exclusivos</p>
+            <p>&copy; {new Date().getFullYear()} GVS Milhas - Gestão Estratégica de Milhas</p>
+            <p>Inteligência financeira aplicada ao mercado de pontos</p>
           </div>
         </div>
       </footer>
+
+      {/* Modal de imagem ampliada */}
+      {selectedImage && (
+        <ImageModal 
+          image={selectedImage} 
+          alt="Resultado de estratégia GVS" 
+          onClose={() => setSelectedImage(null)} 
+        />
+      )}
 
       {/* WhatsApp Float */}
       <div className="whatsapp-float">
