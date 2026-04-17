@@ -149,9 +149,9 @@ function App() {
     {
       id: 1,
       title: 'Estratégia Cesar',
-      originalPrice: 'R$ 160.588,77',
+      originalPrice: 'R$ 310.297,77',
       economyPrice: 'R$ 142.232,77',
-      economyPercent: '88,57%',
+      economyPercent: '54,15%',
       description: 'Otimização de gastos do cartão',
       icon: '📊',
       image: '/images/resultadoCesar.jpeg'
@@ -159,9 +159,9 @@ function App() {
     {
       id: 2,
       title: 'Estratégia Marco',
-      originalPrice: 'R$ 474.808,00',
+      originalPrice: 'R$ 1.056.884,93',
       economyPrice: 'R$ 401.108,00',
-      economyPercent: '84,52%',
+      economyPercent: '62,07%',
       description: 'Resgate estratégico de pontos',
       icon: '📊',
       image: '/images/resultadosMarco.jpeg'
@@ -169,9 +169,9 @@ function App() {
     {
       id: 3,
       title: 'Estratégia Guilherme',
-      originalPrice: 'R$ 557.994,87',
+      originalPrice: 'R$ 655.031,31',
       economyPrice: 'R$ 507.294,87',
-      economyPercent: '91,08%',
+      economyPercent: '22,56%',
       description: 'Gestão completa de portfólio',
       icon: '📊',
       image: '/images/resultadosGuilherme.jpeg'
@@ -377,7 +377,7 @@ function App() {
 
             <div className="hero-stats">
               <div className="stat">
-                <span className="stat-number">R$ 1.2M+</span>
+                <span className="stat-number">R$ 2M+</span>
                 <span className="stat-label">Economia Gerada</span>
               </div>
               <div className="stat-divider"></div>
@@ -412,7 +412,7 @@ function App() {
               <span className="card-icon">🏦</span>
               <div className="card-info">
                 <strong>Ativos Gerados</strong>
-                <span>R$ 1.2M</span>
+                <span>R$ 2M</span>
               </div>
             </div>
             <div className="hero-graph"></div>
@@ -695,7 +695,7 @@ function App() {
             <span className="stat-label">Anos de Estratégia</span>
           </div>
           <div className="stat-item">
-            <span className="stat-number">R$ 1.2M+</span>
+            <span className="stat-number">R$ 2M+</span>
             <span className="stat-label">Economia Gerada</span>
           </div>
           <div className="stat-item">
