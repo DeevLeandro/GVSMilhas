@@ -1201,3 +1201,19 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
 @media (max-width: 480px) {
   .edu-block { padding: 16px; }
 }
+
+/* form__btn disabled state */
+.form__btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* fsuccess warn */
+.fsuccess__warn {
+  margin-top: 12px;
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.18);
+  line-height: 1.55;
+  font-weight: 300;
+}

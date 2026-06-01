@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { sendEmail } from './Resend.js';
 
 function useReveal(threshold = 0.15) {
   const ref = useRef(null);
@@ -52,12 +53,12 @@ const TRIPS = [
 ];
 
 const HOTELS = [
-  { name: 'Four Seasons Maldivas',   local: 'Landaa Giraavaru · Maldivas', pct: 74, orig: 'R$ 28.400', paid: 'R$ 7.380',  noites: '5 noites · Overwater Villa',  img: '/images/hotel-maldivas.jpeg'  },
-  { name: 'Burj Al Arab',            local: 'Dubai · Emirados Árabes',     pct: 68, orig: 'R$ 34.200', paid: 'R$ 10.940', noites: '3 noites · Deluxe Suite',     img: '/images/hotel-dubai.jpeg'     },
-  { name: 'Park Hyatt Paris-Vendôme',local: 'Paris · França',              pct: 61, orig: 'R$ 19.800', paid: 'R$ 7.720',  noites: '4 noites · Park Room',        img: '/images/hotel-paris.jpeg'     },
-  { name: 'Aman Tokyo',              local: 'Tokyo · Japão',               pct: 57, orig: 'R$ 22.600', paid: 'R$ 9.720',  noites: '3 noites · Aman Suite',       img: '/images/hotel-tokyo.jpeg'     },
-  { name: 'Six Senses Ibiza',        local: 'Ibiza · Espanha',             pct: 65, orig: 'R$ 16.900', paid: 'R$ 5.920',  noites: '4 noites · Cave Suite',       img: '/images/hotel-ibiza.jpeg'     },
-  { name: 'The Brando',              local: 'Tetiaroa · Polinésia Francesa',pct: 71, orig: 'R$ 48.300', paid: 'R$ 13.980', noites: '5 noites · Villa Beachfront', img: '/images/hotel-polinesia.jpeg' },
+  { name: 'Four Seasons Maldivas',    local: 'Landaa Giraavaru · Maldivas',  pct: 74, orig: 'R$ 28.400', paid: 'R$ 7.380',  noites: '5 noites · Overwater Villa',  img: '/images/hotel-maldivas.jpeg'  },
+  { name: 'Burj Al Arab',             local: 'Dubai · Emirados Árabes',      pct: 68, orig: 'R$ 34.200', paid: 'R$ 10.940', noites: '3 noites · Deluxe Suite',     img: '/images/hotel-dubai.jpeg'     },
+  { name: 'Park Hyatt Paris-Vendôme', local: 'Paris · França',               pct: 61, orig: 'R$ 19.800', paid: 'R$ 7.720',  noites: '4 noites · Park Room',        img: '/images/hotel-paris.jpeg'     },
+  { name: 'Aman Tokyo',               local: 'Tokyo · Japão',                pct: 57, orig: 'R$ 22.600', paid: 'R$ 9.720',  noites: '3 noites · Aman Suite',       img: '/images/hotel-tokyo.jpeg'     },
+  { name: 'Six Senses Ibiza',         local: 'Ibiza · Espanha',              pct: 65, orig: 'R$ 16.900', paid: 'R$ 5.920',  noites: '4 noites · Cave Suite',       img: '/images/hotel-ibiza.jpeg'     },
+  { name: 'The Brando',               local: 'Tetiaroa · Polinésia Francesa',pct: 71, orig: 'R$ 48.300', paid: 'R$ 13.980', noites: '5 noites · Villa Beachfront', img: '/images/hotel-polinesia.jpeg' },
 ];
 
 const CASES = [
@@ -71,9 +72,11 @@ export default function App() {
   const [menuOpen,    setMenuOpen]    = useState(false);
   const [trip,        setTrip]        = useState(0);
   const [hotel,       setHotel]       = useState(0);
-  const [viagens_tab, setViagensTab]  = useState('voos'); // 'voos' | 'hoteis'
+  const [viagens_tab, setViagensTab]  = useState('voos');
   const [lightbox,    setLightbox]    = useState(null);
   const [submitted,   setSubmitted]   = useState(false);
+  const [sending,     setSending]     = useState(false);
+  const [sendError,   setSendError]   = useState(false);
   const [form, setForm] = useState({ nome: '', telefone: '', email: '', gasto: '', viagens: '' });
 
   useEffect(() => {
@@ -85,10 +88,24 @@ export default function App() {
   const openWA = (msg = 'Olá, gostaria de conhecer o serviço GVS Milhas.') =>
     window.open(`https://wa.me/5547997202400?text=${encodeURIComponent(msg)}`, '_blank');
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    const msg = `Olá! Solicito uma análise gratuita.\n\nNome: ${form.nome}\nWhatsApp: ${form.telefone}\nE-mail: ${form.email}\nGasto mensal: ${form.gasto}\nViagens/ano: ${form.viagens}`;
-    window.open(`https://wa.me/5547997202400?text=${encodeURIComponent(msg)}`, '_blank');
+    setSending(true);
+    setSendError(false);
+
+    // 1. Abre WhatsApp imediatamente — não depende do email
+    const waMsg = `Olá! Solicito uma análise gratuita.\n\nNome: ${form.nome}\nWhatsApp: ${form.telefone}\nE-mail: ${form.email}\nGasto mensal: ${form.gasto}\nViagens/ano: ${form.viagens}`;
+    openWA(waMsg);
+
+    // 2. Envia email em paralelo via Resend
+    const result = await sendEmail(form);
+    if (!result.ok) {
+      // falha silenciosa — WhatsApp já foi aberto, não bloqueia o fluxo
+      setSendError(true);
+      console.warn('Email não enviado, mas WhatsApp foi aberto.');
+    }
+
+    setSending(false);
     setSubmitted(true);
     setForm({ nome: '', telefone: '', email: '', gasto: '', viagens: '' });
     setTimeout(() => setSubmitted(false), 8000);
@@ -259,14 +276,6 @@ export default function App() {
                 <path d="M9 22V12h6v10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
             </div>
-            <div className="edu-block__body">
-              <p className="edu-block__title">Milhas não são só para passagens aéreas.</p>
-              <p className="edu-block__text">
-                A maioria dos clientes descobre com a gente que seus pontos também pagam noites em hotéis 5 estrelas —
-                Four Seasons, Aman, Ritz-Carlton, Park Hyatt — com até <strong>80% de desconto</strong> sobre o valor de tabela.
-                Nós cuidamos de tudo isso também.
-              </p>
-            </div>
           </Fade>
         </div>
       </section>
@@ -278,7 +287,7 @@ export default function App() {
             <p className="label label--dim">Exemplos reais · Voos e Hotéis</p>
             <h2 className="h2 h2--w">Economia comprovada<br /><em>em cada detalhe da viagem.</em></h2>
           </Fade>
-
+          
           {/* Tabs */}
           <div className="vtabs">
             <button
@@ -488,6 +497,11 @@ export default function App() {
                 <div className="fsuccess__ring">✓</div>
                 <h3>Recebemos.</h3>
                 <p>Você será contactado em até 2 horas.</p>
+                {sendError && (
+                  <p className="fsuccess__warn">
+                    (O WhatsApp foi aberto normalmente. O e-mail de confirmação pode não ter chegado — sem problema.)
+                  </p>
+                )}
               </div>
             ) : (
               <form className="form" onSubmit={handleSubmit}>
@@ -528,8 +542,8 @@ export default function App() {
                     <option>Mais de 10 viagens</option>
                   </select>
                 </div>
-                <button type="submit" className="form__btn">
-                  Solicitar diagnóstico gratuito →
+                <button type="submit" className="form__btn" disabled={sending}>
+                  {sending ? 'Enviando…' : 'Solicitar diagnóstico gratuito →'}
                 </button>
                 <p className="form__note">
                   Ou fale diretamente: <button type="button" className="form__wa" onClick={() => openWA()}>WhatsApp</button>
