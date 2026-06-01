@@ -251,7 +251,6 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
   object-fit: cover;
   object-position: center top;
 }
-/* refined cinematic mask — stronger on left, nearly transparent on right */
 .hero__mask {
   position: absolute;
   inset: 0;
@@ -356,7 +355,6 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
 }
 .hp__sep { color: rgba(255,255,255,0.12); }
 
-/* scroll line bottom-left */
 .hero__scroll-line {
   position: absolute;
   bottom: 32px; left: 52px;
@@ -427,29 +425,6 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
   line-height: 1.68;
   font-weight: 300;
 }
-
-/* airlines */
-.airlines {
-  border-top: 1px solid var(--line);
-  padding-top: 32px;
-}
-.airlines__list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 14px;
-}
-.airline {
-  font-size: 0.72rem;
-  font-weight: 400;
-  color: var(--dim);
-  border: 1px solid var(--line);
-  padding: 5px 13px;
-  border-radius: 100px;
-  transition: var(--t);
-  letter-spacing: 0.01em;
-}
-.airline:hover { color: var(--ink); border-color: var(--muted); }
 
 /* ══ TRIPS ══ */
 .trips {
@@ -749,6 +724,53 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
   color: var(--muted);
 }
 
+/* ══ GARANTIA ══ */
+.garantia {
+  background: #0a0a09;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  padding: 44px 0;
+}
+.garantia__in {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.garantia__icon {
+  flex-shrink: 0;
+  width: 56px; height: 56px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.03);
+}
+.garantia__body { flex: 1; }
+.garantia__title {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.garantia__text {
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.38);
+  line-height: 1.68;
+  max-width: 700px;
+}
+.garantia__text strong {
+  color: rgba(255,255,255,0.68);
+  font-weight: 500;
+}
+.garantia__fine {
+  margin-top: 8px;
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.18);
+}
+
 /* ══ CONTACT ══ */
 .contact {
   display: grid;
@@ -830,7 +852,7 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
 .form__btn {
   width: 100%;
   margin-top: 6px;
-  padding: 13px;
+  padding: 14px;
   background: var(--white);
   color: var(--ink);
   font-size: 0.75rem;
@@ -974,14 +996,24 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
   .about { grid-template-columns: 1fr; gap: 44px; }
   .about__photo { max-width: 380px; }
   .about__frame { aspect-ratio: 4/3; }
+  .garantia__in { gap: 22px; }
 }
 
 @media (max-width: 768px) {
   .sec { padding: 72px 0; }
   .wrap, .hdr__in, .about, .contact { padding: 0 24px; }
   .footer__in { padding: 0 24px 36px; }
-  .hero__photo-wrap { width: 100%; opacity: 0.18; }
-  .hero__mask { background: linear-gradient(90deg, var(--ink) 0%, rgba(15,15,14,0.55) 100%); }
+
+  /* ── Hero mobile: foto mais visível ── */
+  .hero__photo-wrap { width: 100%; opacity: 0.55; }
+  .hero__mask {
+    background:
+      linear-gradient(to bottom,
+        rgba(15,15,14,0.72) 0%,
+        rgba(15,15,14,0.38) 40%,
+        rgba(15,15,14,0.62) 100%
+      );
+  }
   .hero__content { padding: 96px 24px 64px; margin-left: 0; max-width: 100%; }
   .hero__scroll-line { left: 24px; }
 
@@ -1026,6 +1058,10 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
   .contact { grid-template-columns: 1fr; gap: 36px; }
   .contact__form-wrap { padding: 24px; border-radius: var(--rl); }
 
+  .garantia { padding: 32px 0; }
+  .garantia__in { flex-direction: column; align-items: flex-start; gap: 18px; padding: 0 24px; }
+  .garantia__title { font-size: 1rem; }
+
   .footer__in { grid-template-columns: 1fr; gap: 28px; }
   .footer__btm { padding: 14px 24px; }
 
@@ -1036,4 +1072,132 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
 @media (max-width: 480px) {
   .hero__h1 { font-size: 2.2rem; }
   .about__stats { flex-direction: column; gap: 14px; }
+  .contact__form-wrap { padding: 20px 16px; }
+}
+
+/* ══ SERVICE HOTEL HIGHLIGHT ══ */
+.service--hotel {
+  background: var(--ink);
+  border-right-color: rgba(255,255,255,0.06);
+  position: relative;
+}
+.service--hotel .service__n  { color: rgba(255,255,255,0.22); border-bottom-color: rgba(255,255,255,0.08); }
+.service--hotel .service__t  { color: var(--white); }
+.service--hotel .service__d  { color: rgba(255,255,255,0.38); }
+.service--hotel:hover         { background: var(--ink-2); }
+.service--hotel::after        { background: rgba(255,255,255,0.15); }
+
+.service__tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.52rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 3px 8px;
+  border-radius: 100px;
+  margin-bottom: 10px;
+}
+
+/* ══ BLOCO EDUCATIVO ══ */
+.edu-block {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  background: var(--off);
+  border: 1px solid var(--line);
+  border-radius: var(--rl);
+  padding: 24px 28px;
+  margin-top: 32px;
+}
+.edu-block__icon {
+  flex-shrink: 0;
+  width: 38px; height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--dim);
+  margin-top: 2px;
+}
+.edu-block__title {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 5px;
+}
+.edu-block__text {
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: var(--dim);
+  line-height: 1.68;
+}
+.edu-block__text strong { color: var(--ink); font-weight: 500; }
+
+/* ══ VIAGENS TABS ══ */
+.vtabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.vtab {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 20px;
+  font-size: 0.74rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.28);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: var(--t);
+  background: transparent;
+}
+.vtab:hover { color: rgba(255,255,255,0.55); border-color: rgba(255,255,255,0.15); }
+.vtab--active {
+  color: var(--ink);
+  background: var(--white);
+  border-color: var(--white);
+}
+.vtab--active svg path { stroke: var(--ink); opacity: 1; }
+.vtab--active svg path[fill="currentColor"] { fill: var(--ink); }
+
+/* Hotel label badge */
+.tp__hotel-label {
+  position: absolute;
+  bottom: 14px; left: 14px;
+  font-size: 0.52rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  border: 1px solid rgba(255,255,255,0.18);
+  padding: 3px 9px;
+  border-radius: 100px;
+}
+
+/* Hotel local sub-label */
+.tp__local {
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.22);
+  margin-top: -20px;
+  margin-bottom: 22px;
+  letter-spacing: 0.02em;
+}
+
+/* ══ RESPONSIVE ADDITIONS ══ */
+@media (max-width: 768px) {
+  .edu-block { flex-direction: column; gap: 12px; padding: 20px; }
+  .vtabs { flex-direction: column; }
+  .vtab { justify-content: center; }
+  .service--hotel { border-top: 1px solid rgba(255,255,255,0.06); }
+}
+
+@media (max-width: 480px) {
+  .edu-block { padding: 16px; }
 }

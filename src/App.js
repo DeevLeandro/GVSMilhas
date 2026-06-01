@@ -51,19 +51,30 @@ const TRIPS = [
   { route: 'Doha → Londres',     cabin: 'QSuite · Qatar Airways',        pct: 82, orig: 'R$ 52.300', paid: 'R$ 9.530',  img: '/images/cliente-suite.jpeg'     },
 ];
 
+const HOTELS = [
+  { name: 'Four Seasons Maldivas',   local: 'Landaa Giraavaru · Maldivas', pct: 74, orig: 'R$ 28.400', paid: 'R$ 7.380',  noites: '5 noites · Overwater Villa',  img: '/images/hotel-maldivas.jpeg'  },
+  { name: 'Burj Al Arab',            local: 'Dubai · Emirados Árabes',     pct: 68, orig: 'R$ 34.200', paid: 'R$ 10.940', noites: '3 noites · Deluxe Suite',     img: '/images/hotel-dubai.jpeg'     },
+  { name: 'Park Hyatt Paris-Vendôme',local: 'Paris · França',              pct: 61, orig: 'R$ 19.800', paid: 'R$ 7.720',  noites: '4 noites · Park Room',        img: '/images/hotel-paris.jpeg'     },
+  { name: 'Aman Tokyo',              local: 'Tokyo · Japão',               pct: 57, orig: 'R$ 22.600', paid: 'R$ 9.720',  noites: '3 noites · Aman Suite',       img: '/images/hotel-tokyo.jpeg'     },
+  { name: 'Six Senses Ibiza',        local: 'Ibiza · Espanha',             pct: 65, orig: 'R$ 16.900', paid: 'R$ 5.920',  noites: '4 noites · Cave Suite',       img: '/images/hotel-ibiza.jpeg'     },
+  { name: 'The Brando',              local: 'Tetiaroa · Polinésia Francesa',pct: 71, orig: 'R$ 48.300', paid: 'R$ 13.980', noites: '5 noites · Villa Beachfront', img: '/images/hotel-polinesia.jpeg' },
+];
+
 const CASES = [
-  { name: 'Cesar',     pct: 54, orig: 'R$ 310.297',   saved: 'R$ 142.232', img: '/images/resultadoCesar.jpeg'      },
-  { name: 'Marco',     pct: 62, orig: 'R$ 1.056.884', saved: 'R$ 401.108', img: '/images/resultadosMarco.jpeg'     },
-  { name: 'Guilherme', pct: 22, orig: 'R$ 655.031',   saved: 'R$ 507.294', img: '/images/resultadosGuilherme.jpeg' },
+  { name: 'Cesar',     pct: 46, orig: 'R$ 310.297',   saved: 'R$ 142.232', img: '/images/resultadoCesar.jpeg'      },
+  { name: 'Marco',     pct: 38, orig: 'R$ 1.056.884', saved: 'R$ 401.108', img: '/images/resultadosMarco.jpeg'     },
+  { name: 'Guilherme', pct: 77, orig: 'R$ 655.031',   saved: 'R$ 507.294', img: '/images/resultadosGuilherme.jpeg' },
 ];
 
 export default function App() {
-  const [scrolled,  setScrolled]  = useState(false);
-  const [menuOpen,  setMenuOpen]  = useState(false);
-  const [trip,      setTrip]      = useState(0);
-  const [lightbox,  setLightbox]  = useState(null);
-  const [submitted, setSubmitted] = useState(false);
-  const [form, setForm] = useState({ nome: '', telefone: '', gasto: '' });
+  const [scrolled,    setScrolled]    = useState(false);
+  const [menuOpen,    setMenuOpen]    = useState(false);
+  const [trip,        setTrip]        = useState(0);
+  const [hotel,       setHotel]       = useState(0);
+  const [viagens_tab, setViagensTab]  = useState('voos'); // 'voos' | 'hoteis'
+  const [lightbox,    setLightbox]    = useState(null);
+  const [submitted,   setSubmitted]   = useState(false);
+  const [form, setForm] = useState({ nome: '', telefone: '', email: '', gasto: '', viagens: '' });
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 48);
@@ -76,10 +87,10 @@ export default function App() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const msg = `Olá! Solicito uma análise.\n\nNome: ${form.nome}\nTelefone: ${form.telefone}\nGasto mensal: ${form.gasto}`;
+    const msg = `Olá! Solicito uma análise gratuita.\n\nNome: ${form.nome}\nWhatsApp: ${form.telefone}\nE-mail: ${form.email}\nGasto mensal: ${form.gasto}\nViagens/ano: ${form.viagens}`;
     window.open(`https://wa.me/5547997202400?text=${encodeURIComponent(msg)}`, '_blank');
     setSubmitted(true);
-    setForm({ nome: '', telefone: '', gasto: '' });
+    setForm({ nome: '', telefone: '', email: '', gasto: '', viagens: '' });
     setTimeout(() => setSubmitted(false), 8000);
   };
 
@@ -102,10 +113,10 @@ export default function App() {
           </button>
 
           <nav className={`nav${menuOpen ? ' open' : ''}`}>
-            <a href="#servico"   className="nav__a" onClick={() => setMenuOpen(false)}>Serviço</a>
-            <a href="#viagens"   className="nav__a" onClick={() => setMenuOpen(false)}>Viagens</a>
-            <a href="#resultados"className="nav__a" onClick={() => setMenuOpen(false)}>Resultados</a>
-            <a href="#sobre"     className="nav__a" onClick={() => setMenuOpen(false)}>Sobre</a>
+            <a href="#sobre"      className="nav__a" onClick={() => setMenuOpen(false)}>Sobre</a>
+            <a href="#servico"    className="nav__a" onClick={() => setMenuOpen(false)}>Serviço</a>
+            <a href="#viagens"    className="nav__a" onClick={() => setMenuOpen(false)}>Viagens</a>
+            <a href="#resultados" className="nav__a" onClick={() => setMenuOpen(false)}>Resultados</a>
             <button className="nav__cta" onClick={() => { setMenuOpen(false); openWA(); }}>
               Falar agora
             </button>
@@ -121,7 +132,7 @@ export default function App() {
         </div>
 
         <div className="hero__content">
-          <p className="hero__pre">Gestão de Milhas · Business &amp; First Class</p>
+          <p className="hero__pre">Gestão de Milhas · Business &amp; First Class · Hotéis de Luxo</p>
 
           <h1 className="hero__h1">
             Economia <br />
@@ -131,8 +142,8 @@ export default function App() {
           </h1>
 
           <p className="hero__sub">
-            Gestão completa de pontos, reservas em Business e First Class
-            e suporte full-service. Você só embarca.
+            Gestão completa de pontos, reservas em Business e First Class,
+            hotéis de luxo e suporte full-service. Você só embarca.
           </p>
 
           <button className="hero__cta" onClick={() => openWA()}>
@@ -142,13 +153,58 @@ export default function App() {
           <div className="hero__proof">
             <span>R$ 2M+ economizados</span>
             <span className="hp__sep">·</span>
-            <span>Business &amp; First Class exclusivo</span>
+            <span>Voos Business &amp; First</span>
+            <span className="hp__sep">·</span>
+            <span>Hotéis de Luxo</span>
             <span className="hp__sep">·</span>
             <span>5 anos de atuação</span>
           </div>
         </div>
 
         <div className="hero__scroll-line" />
+      </section>
+
+      {/* ── SOBRE ── */}
+      <section className="sec sec--off" id="sobre">
+        <div className="wrap about">
+          <Fade className="about__photo">
+            <div className="about__frame">
+              <img src="/images/Sobre.png" alt="Guilherme Vieira" loading="lazy" />
+              <div className="about__frame-cap">
+                <strong>Guilherme Vieira</strong>
+                <span>Fundador · GVS Milhas</span>
+              </div>
+            </div>
+          </Fade>
+          <Fade delay={0.1} className="about__copy">
+            <p className="label">Fundador</p>
+            <h2 className="h2">Guilherme Vieira</h2>
+            <p className="about__p">
+              Há 5 anos gerindo milhas para executivos, empresários e famílias de alto patrimônio.
+              A GVS não é uma agência — é um serviço privado onde você contrata uma vez
+              e nós nos tornamos seu departamento completo de viagens.
+            </p>
+            <p className="about__p">
+              Do acúmulo à emissão, do hotel à experiência local: você define o destino,
+              nós entregamos a melhor cabine e o melhor quarto pelo menor custo possível.
+            </p>
+            <div className="about__stats">
+              <div className="astat">
+                <span className="astat__v">R$ 2M+</span>
+                <span className="astat__l">economizados</span>
+              </div>
+              <div className="astat">
+                <span className="astat__v">100%</span>
+                <span className="astat__l">Business ou First</span>
+              </div>
+              <div className="astat">
+                <span className="astat__v">5 anos</span>
+                <span className="astat__l">de atuação</span>
+              </div>
+            </div>
+            <button className="btn-dark" onClick={() => openWA()}>Falar com Guilherme</button>
+          </Fade>
+        </div>
       </section>
 
       {/* ── SERVIÇO ── */}
@@ -171,13 +227,14 @@ export default function App() {
               },
               {
                 n: '02',
-                t: 'Reservas Business & First',
+                t: 'Voos Business & First',
                 d: 'Emitimos suas passagens executivas e de primeira classe com o máximo de economia — sem você precisar pesquisar nada.',
               },
               {
                 n: '03',
-                t: 'Hotéis & experiências',
-                d: 'Reservamos hotéis de luxo com pontos ou tarifas preferenciais. Check-in VIP, upgrades e benefícios exclusivos inclusos.',
+                t: 'Hotéis de Luxo',
+                d: 'Reservamos Four Seasons, Aman, Park Hyatt e outros com pontos ou tarifas preferenciais. Milhas não são só para voos.',
+                highlight: true,
               },
               {
                 n: '04',
@@ -185,66 +242,157 @@ export default function App() {
                 d: 'Um consultor dedicado disponível para qualquer necessidade — mudanças de rota, emergências ou novos roteiros.',
               },
             ].map((s, i) => (
-              <Fade key={i} delay={i * 0.07} className="service">
+              <Fade key={i} delay={i * 0.07} className={`service${s.highlight ? ' service--hotel' : ''}`}>
                 <span className="service__n">{s.n}</span>
+                {s.highlight && <span className="service__tag">Muitos não sabem</span>}
                 <h3 className="service__t">{s.t}</h3>
                 <p className="service__d">{s.d}</p>
               </Fade>
             ))}
           </div>
+
+          {/* ── Bloco educativo hotéis ── */}
+          <Fade className="edu-block">
+            <div className="edu-block__icon">
+              <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                <path d="M9 22V12h6v10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+            </div>
+            <div className="edu-block__body">
+              <p className="edu-block__title">Milhas não são só para passagens aéreas.</p>
+              <p className="edu-block__text">
+                A maioria dos clientes descobre com a gente que seus pontos também pagam noites em hotéis 5 estrelas —
+                Four Seasons, Aman, Ritz-Carlton, Park Hyatt — com até <strong>80% de desconto</strong> sobre o valor de tabela.
+                Nós cuidamos de tudo isso também.
+              </p>
+            </div>
+          </Fade>
         </div>
       </section>
 
-      {/* ── VIAGENS ── */}
+      {/* ── VIAGENS: VOOS & HOTÉIS ── */}
       <section className="sec sec--dark" id="viagens">
         <div className="wrap">
           <Fade className="sec__head">
-            <h2 className="h2 h2--w">Exemplos reais de economia</h2>
+            <p className="label label--dim">Exemplos reais · Voos e Hotéis</p>
+            <h2 className="h2 h2--w">Economia comprovada<br /><em>em cada detalhe da viagem.</em></h2>
           </Fade>
-          <p className="label label--dim">Destinos recentes</p>
-          <div className="trips">
-            <div className="trips__nav">
-              {TRIPS.map((t, i) => (
-                <button key={i}
-                  className={`tn${trip === i ? ' active' : ''}`}
-                  onClick={() => setTrip(i)}>
-                  <span className="tn__route">{t.route}</span>
-                  <span className="tn__cabin">{t.cabin}</span>
-                </button>
-              ))}
-            </div>
 
-            <div className="trips__stage">
-              {TRIPS.map((t, i) => (
-                <div key={i} className={`tp${trip === i ? ' active' : ''}`}>
-                  <div className="tp__img" onClick={() => setLightbox(t.img)}>
-                    <img src={t.img} alt={t.route} loading="lazy" />
-                    <div className="tp__img-over" />
-                    <span className="tp__badge">{t.pct}% off</span>
-                  </div>
-                  <div className="tp__info">
-                    <p className="tp__cabin">{t.cabin}</p>
-                    <h3 className="tp__route">{t.route}</h3>
-                    <div className="tp__economy">
-                      <div className="tp__col">
-                        <span className="tp__lbl">Mercado</span>
-                        <span className="tp__orig">{t.orig}</span>
-                      </div>
-                      <div className="tp__arrow">→</div>
-                      <div className="tp__col">
-                        <span className="tp__lbl">Pago</span>
-                        <span className="tp__paid">{t.paid}</span>
-                      </div>
-                      <div className="tp__tag">{t.pct}% off</div>
-                    </div>
-                    <button className="tp__cta" onClick={() => openWA(`Olá, quero uma viagem assim: ${t.route}`)}>
-                      Quero este roteiro →
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
+          {/* Tabs */}
+          <div className="vtabs">
+            <button
+              className={`vtab${viagens_tab === 'voos' ? ' vtab--active' : ''}`}
+              onClick={() => setViagensTab('voos')}>
+              <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
+                <path d="M21 16l-3-3H9l-3-9-2 .5 2.5 8.5H3l-1 2 4 1 1 4 2-1V17h9l3 3 2-1-2-3z" fill="currentColor" opacity=".7"/>
+              </svg>
+              Passagens aéreas
+            </button>
+            <button
+              className={`vtab${viagens_tab === 'hoteis' ? ' vtab--active' : ''}`}
+              onClick={() => setViagensTab('hoteis')}>
+              <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
+                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="currentColor" strokeWidth="1.8" fill="none"/>
+                <path d="M9 22V12h6v10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+              </svg>
+              Hotéis de luxo
+            </button>
           </div>
+
+          {/* Voos */}
+          {viagens_tab === 'voos' && (
+            <div className="trips">
+              <div className="trips__nav">
+                {TRIPS.map((t, i) => (
+                  <button key={i}
+                    className={`tn${trip === i ? ' active' : ''}`}
+                    onClick={() => setTrip(i)}>
+                    <span className="tn__route">{t.route}</span>
+                    <span className="tn__cabin">{t.cabin}</span>
+                  </button>
+                ))}
+              </div>
+              <div className="trips__stage">
+                {TRIPS.map((t, i) => (
+                  <div key={i} className={`tp${trip === i ? ' active' : ''}`}>
+                    <div className="tp__img" onClick={() => setLightbox(t.img)}>
+                      <img src={t.img} alt={t.route} loading="lazy" />
+                      <div className="tp__img-over" />
+                      <span className="tp__badge">{t.pct}% off</span>
+                    </div>
+                    <div className="tp__info">
+                      <p className="tp__cabin">{t.cabin}</p>
+                      <h3 className="tp__route">{t.route}</h3>
+                      <div className="tp__economy">
+                        <div className="tp__col">
+                          <span className="tp__lbl">Mercado</span>
+                          <span className="tp__orig">{t.orig}</span>
+                        </div>
+                        <div className="tp__arrow">→</div>
+                        <div className="tp__col">
+                          <span className="tp__lbl">Pago</span>
+                          <span className="tp__paid">{t.paid}</span>
+                        </div>
+                        <div className="tp__tag">{t.pct}% off</div>
+                      </div>
+                      <button className="tp__cta" onClick={() => openWA(`Olá, quero uma viagem assim: ${t.route}`)}>
+                        Quero este roteiro →
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Hotéis */}
+          {viagens_tab === 'hoteis' && (
+            <div className="trips">
+              <div className="trips__nav">
+                {HOTELS.map((h, i) => (
+                  <button key={i}
+                    className={`tn${hotel === i ? ' active' : ''}`}
+                    onClick={() => setHotel(i)}>
+                    <span className="tn__route">{h.name}</span>
+                    <span className="tn__cabin">{h.local}</span>
+                  </button>
+                ))}
+              </div>
+              <div className="trips__stage">
+                {HOTELS.map((h, i) => (
+                  <div key={i} className={`tp${hotel === i ? ' active' : ''}`}>
+                    <div className="tp__img" onClick={() => setLightbox(h.img)}>
+                      <img src={h.img} alt={h.name} loading="lazy" />
+                      <div className="tp__img-over" />
+                      <span className="tp__badge">{h.pct}% off</span>
+                      <span className="tp__hotel-label">Hotel</span>
+                    </div>
+                    <div className="tp__info">
+                      <p className="tp__cabin">{h.noites}</p>
+                      <h3 className="tp__route">{h.name}</h3>
+                      <p className="tp__local">{h.local}</p>
+                      <div className="tp__economy">
+                        <div className="tp__col">
+                          <span className="tp__lbl">Mercado</span>
+                          <span className="tp__orig">{h.orig}</span>
+                        </div>
+                        <div className="tp__arrow">→</div>
+                        <div className="tp__col">
+                          <span className="tp__lbl">Pago com milhas</span>
+                          <span className="tp__paid">{h.paid}</span>
+                        </div>
+                        <div className="tp__tag">{h.pct}% off</div>
+                      </div>
+                      <button className="tp__cta" onClick={() => openWA(`Olá, quero reservar um hotel assim: ${h.name} em ${h.local}`)}>
+                        Quero este hotel →
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -252,9 +400,10 @@ export default function App() {
       <section className="sec" id="resultados">
         <div className="wrap">
           <Fade className="sec__head">
+            <p className="label">Resultados de clientes</p>
             <h2 className="h2">Economia comprovada<br /><em>em números reais</em></h2>
           </Fade>
-           <p className="label">Resultados de clientes</p>
+
           <div className="cases">
             {CASES.map((c, i) => (
               <Fade key={i} delay={i * 0.08}>
@@ -282,46 +431,25 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── SOBRE ── */}
-      <section className="sec sec--off" id="sobre">
-        <div className="wrap about">
-          <Fade className="about__photo">
-            <div className="about__frame">
-              <img src="/images/Sobre.png" alt="Guilherme Vieira" loading="lazy" />
-              <div className="about__frame-cap">
-                <strong>Guilherme Vieira</strong>
-                <span>Fundador · GVS Milhas</span>
-              </div>
-            </div>
-          </Fade>
-          <Fade delay={0.1} className="about__copy">
-            <p className="label">Fundador</p>
-            <h2 className="h2">Guilherme Vieira</h2>
-            <p className="about__p">
-              Há 5 anos gerindo milhas para executivos, empresários e famílias de alto patrimônio.
-              A GVS não é uma agência — é um serviço privado onde você contrata uma vez
-              e nós nos tornamos seu departamento completo de viagens.
+      {/* ── GARANTIA ── */}
+      <section className="garantia">
+        <div className="wrap garantia__in">
+          <div className="garantia__icon">
+            <svg viewBox="0 0 24 24" fill="none" width="28" height="28">
+              <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z"
+                stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" fill="none"/>
+              <path d="M9 12l2 2 4-4" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5"
+                strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          <div className="garantia__body">
+            <h3 className="garantia__title">Garantia Contratual de Resultado</h3>
+            <p className="garantia__text">
+              Nosso compromisso é mensurável: <strong>se em 12 meses a economia gerada não for, no mínimo,
+              o dobro do valor investido na consultoria, devolvemos 100% do pagamento.</strong>
             </p>
-            <p className="about__p">
-              Do acúmulo à emissão, do hotel à experiência local: você define o destino,
-              nós entregamos a melhor cabine pelo menor custo possível.
-            </p>
-            <div className="about__stats">
-              <div className="astat">
-                <span className="astat__v">R$ 2M+</span>
-                <span className="astat__l">economizados</span>
-              </div>
-              <div className="astat">
-                <span className="astat__v">100%</span>
-                <span className="astat__l">Business ou First</span>
-              </div>
-              <div className="astat">
-                <span className="astat__v">5 anos</span>
-                <span className="astat__l">de atuação</span>
-              </div>
-            </div>
-            <button className="btn-dark" onClick={() => openWA()}>Falar com Guilherme</button>
-          </Fade>
+            <p className="garantia__fine">Contrato registrado, métricas transparentes e auditáveis. O risco financeiro é nosso.</p>
+          </div>
         </div>
       </section>
 
@@ -330,10 +458,10 @@ export default function App() {
         <div className="wrap contact">
           <Fade className="contact__left">
             <p className="label label--dim">Acesso ao serviço</p>
-            <h2 className="h2 h2--w">Simples.<br /><em>Direto. Eficiente.</em></h2>
+            <h2 className="h2 h2--w">Diagnóstico<br /><em>gratuito e personalizado.</em></h2>
             <p className="contact__sub">
-              Deixe seu contato. Um especialista fala com você em menos de 2 horas
-              e apresenta sua estratégia personalizada.
+              Preencha o formulário. Um especialista analisa seu perfil e apresenta
+              sua estratégia de economia em menos de 2 horas.
             </p>
             <div className="contact__items">
               <div className="ci">
@@ -346,7 +474,7 @@ export default function App() {
               </div>
               <div className="ci">
                 <span className="ci__n">03</span>
-                <p>Você embarca. Nós cuidamos de tudo</p>
+                <p>Você embarca — voos e hotéis. Nós cuidamos de tudo</p>
               </div>
             </div>
             <p className="contact__note">
@@ -364,17 +492,22 @@ export default function App() {
             ) : (
               <form className="form" onSubmit={handleSubmit}>
                 <div className="ff">
-                  <label>Nome</label>
+                  <label>Nome completo</label>
                   <input name="nome" type="text" placeholder="Seu nome completo"
                     value={form.nome} onChange={e => setForm(p => ({ ...p, nome: e.target.value }))} required />
                 </div>
                 <div className="ff">
-                  <label>WhatsApp</label>
-                  <input name="telefone" type="tel" placeholder="(XX) XXXXX-XXXX"
+                  <label>WhatsApp (com DDD)</label>
+                  <input name="telefone" type="tel" placeholder="(47) 99999-9999"
                     value={form.telefone} onChange={e => setForm(p => ({ ...p, telefone: e.target.value }))} required />
                 </div>
                 <div className="ff">
-                  <label>Gasto mensal no cartão</label>
+                  <label>E-mail</label>
+                  <input name="email" type="email" placeholder="seu@email.com"
+                    value={form.email} onChange={e => setForm(p => ({ ...p, email: e.target.value }))} required />
+                </div>
+                <div className="ff">
+                  <label>Média de gastos mensal no cartão</label>
                   <select name="gasto" value={form.gasto}
                     onChange={e => setForm(p => ({ ...p, gasto: e.target.value }))} required>
                     <option value="">Selecione</option>
@@ -384,8 +517,19 @@ export default function App() {
                     <option>Acima de R$ 100.000</option>
                   </select>
                 </div>
+                <div className="ff">
+                  <label>Viagens por ano</label>
+                  <select name="viagens" value={form.viagens}
+                    onChange={e => setForm(p => ({ ...p, viagens: e.target.value }))} required>
+                    <option value="">Selecione</option>
+                    <option>1 – 2 viagens</option>
+                    <option>3 – 5 viagens</option>
+                    <option>6 – 10 viagens</option>
+                    <option>Mais de 10 viagens</option>
+                  </select>
+                </div>
                 <button type="submit" className="form__btn">
-                  Solicitar análise →
+                  Solicitar diagnóstico gratuito →
                 </button>
                 <p className="form__note">
                   Ou fale diretamente: <button type="button" className="form__wa" onClick={() => openWA()}>WhatsApp</button>
@@ -405,13 +549,13 @@ export default function App() {
               <span className="logo__dot">·</span>
               <span className="logo__milhas">Milhas</span>
             </div>
-            <p>Concierge privado de milhas.<br />Business &amp; First Class exclusivo.</p>
+            <p>Concierge privado de milhas.<br />Voos Business &amp; First · Hotéis de Luxo.</p>
           </div>
           <div className="footer__links">
-            <a href="#servico">Serviço</a>
-            <a href="#viagens">Viagens</a>
-            <a href="#resultados">Resultados</a>
             <a href="#sobre">Sobre</a>
+            <a href="#servico">Serviço</a>
+            <a href="#viagens">Viagens &amp; Hotéis</a>
+            <a href="#resultados">Resultados</a>
           </div>
           <div className="footer__contact">
             <button onClick={() => openWA()}>WhatsApp: (47) 99720-2400</button>
