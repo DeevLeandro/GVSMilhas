@@ -210,7 +210,10 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
   border-radius: var(--r);
   transition: var(--t);
 }
-.nav__cta:hover { background: var(--off); }
+.nav__cta:hover { 
+  background: var(--off);
+  color: #0a0a09; 
+}
 
 .burger {
   display: none;
