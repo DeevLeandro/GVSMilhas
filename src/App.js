@@ -549,7 +549,7 @@ export default function App() {
               <span className="logo__dot">·</span>
               <span className="logo__milhas">Milhas</span>
             </div>
-            <p>Concierge privado de milhas.<br />Voos Business &amp; First · Hotéis de Luxo.</p>
+            <p>Concierge vip.<br />Voos Business &amp; First · Hotéis de Luxo.</p>
           </div>
           <div className="footer__links">
             <a href="#sobre">Sobre</a>
