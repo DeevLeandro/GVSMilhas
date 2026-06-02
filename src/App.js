@@ -44,27 +44,24 @@ function Modal({ src, onClose }) {
 }
 
 const TRIPS = [
-  { route: 'Doha → Paris',       cabin: 'First Class · Qatar Airways',   pct: 69, orig: 'R$ 42.800', paid: 'R$ 13.350', img: '/images/cliente-paris.jpeg'     },
-  { route: 'Paris → Tokyo',      cabin: 'Business · Air France',         pct: 72, orig: 'R$ 38.500', paid: 'R$ 10.750', img: '/images/cliente-maldives.jpeg'  },
-  { route: 'Doha → Maldivas',    cabin: 'First Class · Qatar Airways',   pct: 82, orig: 'R$ 45.200', paid: 'R$ 8.230',  img: '/images/cliente-italy.jpeg'     },
-  { route: 'Singapura → Sydney', cabin: 'Business · Singapore Airlines', pct: 46, orig: 'R$ 28.900', paid: 'R$ 15.650', img: '/images/cliente-singapore.jpeg' },
-  { route: 'Istambul → Maldivas',cabin: 'Business · Turkish Airlines',   pct: 86, orig: 'R$ 36.700', paid: 'R$ 5.160',  img: '/images/cliente-swiss.jpeg'     },
-  { route: 'Doha → Londres',     cabin: 'QSuite · Qatar Airways',        pct: 82, orig: 'R$ 52.300', paid: 'R$ 9.530',  img: '/images/cliente-suite.jpeg'     },
+  { route: 'Paris → Abu Dhabi',  cabin: 'First Class · EtiHad Airways',   pct: '74,38', orig: 'R$ 52.000,00', paid: 'R$ 13.322,48',  img: '/images/Itira.jpeg' },
+  { route: 'Bangkok → Maldivas', cabin: 'First Class · Qatar Airways',   pct: '68,81', orig: 'R$ 53.081,00', paid: 'R$ 16.556,30', img: '/images/Doha.png' },
+  { route: 'Guarulhos → Paris',  cabin: 'Business Class · Air France',   pct: '72,07', orig: 'R$ 29.263,00', paid: 'R$ 8.173,89', img: '/images/cliente-maldives.jpeg'  },
+  { route: 'Paris → Doha → Bangkok', cabin: 'Business · First Class · Qatar Airways',   pct: '81,78', orig: 'R$ 88.930,00', paid: 'R$ 16.205,25',  img: '/images/Bankog.png'},
+  { route: 'Singapura → Bangkok', cabin: 'Business · Singapore Airlines', pct: '45,84', orig: 'R$ 8.330,00', paid: 'R$ 4.511,64', img: '/images/cliente-singapore.jpeg' },
+  { route: 'Istambul → Guarulhos',cabin: 'Business · Turkish Airlines',   pct: '85,95', orig: 'R$ 59.361,00', paid: 'R$ 8.337,68',  img: '/images/foto.jpeg'},
 ];
 
 const HOTELS = [
-  { name: 'Four Seasons Maldivas',    local: 'Landaa Giraavaru · Maldivas',  pct: 74, orig: 'R$ 28.400', paid: 'R$ 7.380',  noites: '5 noites · Overwater Villa',  img: '/images/hotel-maldivas.jpeg'  },
-  { name: 'Burj Al Arab',             local: 'Dubai · Emirados Árabes',      pct: 68, orig: 'R$ 34.200', paid: 'R$ 10.940', noites: '3 noites · Deluxe Suite',     img: '/images/hotel-dubai.jpeg'     },
-  { name: 'Park Hyatt Paris-Vendôme', local: 'Paris · França',               pct: 61, orig: 'R$ 19.800', paid: 'R$ 7.720',  noites: '4 noites · Park Room',        img: '/images/hotel-paris.jpeg'     },
-  { name: 'Aman Tokyo',               local: 'Tokyo · Japão',                pct: 57, orig: 'R$ 22.600', paid: 'R$ 9.720',  noites: '3 noites · Aman Suite',       img: '/images/hotel-tokyo.jpeg'     },
-  { name: 'Six Senses Ibiza',         local: 'Ibiza · Espanha',              pct: 65, orig: 'R$ 16.900', paid: 'R$ 5.920',  noites: '4 noites · Cave Suite',       img: '/images/hotel-ibiza.jpeg'     },
-  { name: 'The Brando',               local: 'Tetiaroa · Polinésia Francesa',pct: 71, orig: 'R$ 48.300', paid: 'R$ 13.980', noites: '5 noites · Villa Beachfront', img: '/images/hotel-polinesia.jpeg' },
+  { name: 'Pullman Paris Tour Eiffel',     local: 'Pullman Paris Tour Eiffel · Paris',  pct: '50', orig: 'R$ 8.078,00', paid: 'R$ 4.039,00',  noites: '2 noites · Deluxe Suite',  img: '/images/Hotel-Paris.png'},
+  { name: 'Rixos Premium Saadiyat Island', local: 'Rixos Premium Saadiyat Island · Abu Dhabi', pct: '46,72', orig: '51.362,00', paid: 'R$ 27.594,82', noites: '7 noites · Deluxe Suite',     img: '/images/Hotel-Abu-Dhabi.jpeg'     },
+  { name: 'Fairmont Doha',                 local: 'Fairmont Doha · Qatar',               pct: '48,40', orig: 'R$ 12.850,00', paid: 'R$ 6.630,00 ',  noites: '3 noites · Gold King ',        img: '/images/Fairmont-Doha.png'     },
 ];
 
 const CASES = [
-  { name: 'Cesar',     pct: 46, orig: 'R$ 310.297',   saved: 'R$ 142.232', img: '/images/resultadoCesar.jpeg'      },
-  { name: 'Marco',     pct: 38, orig: 'R$ 1.056.884', saved: 'R$ 401.108', img: '/images/resultadosMarco.jpeg'     },
-  { name: 'Guilherme', pct: 77, orig: 'R$ 655.031',   saved: 'R$ 507.294', img: '/images/resultadosGuilherme.jpeg' },
+  { name: 'Cesar',     pct: 46, orig: 'R$ 310.297',   saved: 'R$ 142.232', img: '/images/resultadoCesar.jpeg' },
+  { name: 'Marco',     pct: 38, orig: 'R$ 1.056.884', saved: 'R$ 401.108', img: '/images/resultadosMarco.jpeg'},
+  { name: 'Guilherme', pct: 77, orig: 'R$ 655.031',   saved: 'R$ 507.294', img: '/images/resultadosGuilherme.jpeg'},
 ];
 
 export default function App() {
@@ -197,13 +194,10 @@ export default function App() {
             <p className="label">Fundador</p>
             <h2 className="h2">Guilherme Vieira</h2>
             <p className="about__p">
-              Há 5 anos gerindo milhas para executivos, empresários e famílias de alto patrimônio.
-              A GVS não é uma agência — é um serviço privado onde você contrata uma vez
-              e nós nos tornamos seu departamento completo de viagens.
-            </p>
-            <p className="about__p">
-              Do acúmulo à emissão, do hotel à experiência local: você define o destino,
-              nós entregamos a melhor cabine e o melhor quarto pelo menor custo possível.
+              Nascido em Balneário Camboriú e formado em Engenharia Civil, construí minha trajetória unindo visão estratégica, gestão e excelência em atendimento de alto padrão.
+              Há mais de 5 anos atuo como especialista em emissões avançadas de passagens em Classe Executiva e Primeira Classe, gerenciando viagens para executivos, empresários e famílias de alto patrimônio que valorizam conforto, exclusividade e otimização inteligente de recursos.
+              A GVS não é uma agência de viagens tradicional. Somos um serviço privado de gestão estratégica de viagens. Ao se tornar cliente, você não contrata apenas uma emissão de passagem: você passa a contar com um departamento completo de viagens dedicado a cuidar de cada detalhe do seu deslocamento, desde o planejamento e emissão até o suporte e acompanhamento contínuo.
+              Nossa missão é transformar viagens em experiências mais confortáveis, eficientes e exclusivas, utilizando inteligência em milhas, benefícios e oportunidades que normalmente não estão disponíveis ao público em geral.
             </p>
             <div className="about__stats">
               <div className="astat">
@@ -268,15 +262,7 @@ export default function App() {
             ))}
           </div>
 
-          {/* ── Bloco educativo hotéis ── */}
-          <Fade className="edu-block">
-            <div className="edu-block__icon">
-              <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
-                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                <path d="M9 22V12h6v10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
-            </div>
-          </Fade>
+
         </div>
       </section>
 
@@ -287,7 +273,7 @@ export default function App() {
             <p className="label label--dim">Exemplos reais · Voos e Hotéis</p>
             <h2 className="h2 h2--w">Economia comprovada<br /><em>em cada detalhe da viagem.</em></h2>
           </Fade>
-          
+
           {/* Tabs */}
           <div className="vtabs">
             <button
