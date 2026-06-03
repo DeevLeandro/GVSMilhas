@@ -44,18 +44,18 @@ function Modal({ src, onClose }) {
 }
 
 const TRIPS = [
-  { route: 'Paris → Abu Dhabi',  cabin: 'First Class · EtiHad Airways',   pct: '74,38', orig: 'R$ 52.000,00', paid: 'R$ 13.322,48',  img: '/images/Itira.jpeg' },
-  { route: 'Bangkok → Maldivas', cabin: 'First Class · Qatar Airways',   pct: '68,81', orig: 'R$ 53.081,00', paid: 'R$ 16.556,30', img: '/images/Doha.png' },
-  { route: 'Guarulhos → Paris',  cabin: 'Business Class · Air France',   pct: '72,07', orig: 'R$ 29.263,00', paid: 'R$ 8.173,89', img: '/images/cliente-maldives.jpeg'  },
-  { route: 'Paris → Doha → Bangkok', cabin: 'Business · First Class · Qatar Airways',   pct: '81,78', orig: 'R$ 88.930,00', paid: 'R$ 16.205,25',  img: '/images/Bankog.png'},
-  { route: 'Singapura → Bangkok', cabin: 'Business · Singapore Airlines', pct: '45,84', orig: 'R$ 8.330,00', paid: 'R$ 4.511,64', img: '/images/cliente-singapore.jpeg' },
-  { route: 'Istambul → Guarulhos',cabin: 'Business · Turkish Airlines',   pct: '85,95', orig: 'R$ 59.361,00', paid: 'R$ 8.337,68',  img: '/images/foto.jpeg'},
+  { route: 'Paris → Abu Dhabi',  cabin: 'First Class · EtiHad Airways',   pct: '74,38', orig: '', paid: '',  img: '/images/Itira.jpeg' },
+  { route: 'Bangkok → Maldivas', cabin: 'First Class · Qatar Airways',   pct: '68,81', orig: '', paid: '', img: '/images/Doha.png' },
+  { route: 'Guarulhos → Paris',  cabin: 'Business Class · Air France',   pct: '72,07', orig: '', paid: '', img: '/images/cliente-maldives.jpeg'  },
+  { route: 'Paris → Doha → Bangkok', cabin: 'Business · First Class · Qatar Airways',   pct: '81,78', orig: '', paid: 'R$ 16.205,25',  img: '/images/Bankog.png'},
+  { route: 'Singapura → Bangkok', cabin: 'Business · Singapore Airlines', pct: '45,84', orig: '', paid: '', img: '/images/cliente-singapore.jpeg' },
+  { route: 'Istambul → Guarulhos',cabin: 'Business · Turkish Airlines',   pct: '85,95', orig: '', paid: '',  img: '/images/foto.jpeg'},
 ];
 
 const HOTELS = [
-  { name: 'Pullman Paris Tour Eiffel',     local: 'Pullman Paris Tour Eiffel · Paris',  pct: '50', orig: 'R$ 8.078,00', paid: 'R$ 4.039,00',  noites: '2 noites · Deluxe Suite',  img: '/images/Hotel-Paris.png'},
-  { name: 'Rixos Premium Saadiyat Island', local: 'Rixos Premium Saadiyat Island · Abu Dhabi', pct: '46,72', orig: '51.362,00', paid: 'R$ 27.594,82', noites: '7 noites · Deluxe Suite',     img: '/images/Hotel-Abu-Dhabi.jpeg'     },
-  { name: 'Fairmont Doha',                 local: 'Fairmont Doha · Qatar',               pct: '48,40', orig: 'R$ 12.850,00', paid: 'R$ 6.630,00 ',  noites: '3 noites · Gold King ',        img: '/images/Fairmont-Doha.png'     },
+  { name: 'Pullman Paris Tour Eiffel',     local: 'Pullman Paris Tour Eiffel · Paris',  pct: '50', orig: '', paid: '',  noites: '2 noites · Deluxe Suite',  img: '/images/Hotel-Paris.png'},
+  { name: 'Rixos Premium Saadiyat Island', local: 'Rixos Premium Saadiyat Island · Abu Dhabi', pct: '46,72', orig: '', paid: '', noites: '7 noites · Deluxe Suite',     img: '/images/Hotel-Abu-Dhabi.jpeg'     },
+  { name: 'Fairmont Doha',                 local: 'Fairmont Doha · Qatar',               pct: '48,40', orig: '', paid: '',  noites: '3 noites · Gold King ',        img: '/images/Fairmont-Doha.png'     },
 ];
 
 const CASES = [
@@ -320,15 +320,6 @@ export default function App() {
                       <p className="tp__cabin">{t.cabin}</p>
                       <h3 className="tp__route">{t.route}</h3>
                       <div className="tp__economy">
-                        <div className="tp__col">
-                          <span className="tp__lbl">Mercado</span>
-                          <span className="tp__orig">{t.orig}</span>
-                        </div>
-                        <div className="tp__arrow">→</div>
-                        <div className="tp__col">
-                          <span className="tp__lbl">Pago</span>
-                          <span className="tp__paid">{t.paid}</span>
-                        </div>
                         <div className="tp__tag">{t.pct}% off</div>
                       </div>
                       <button className="tp__cta" onClick={() => openWA(`Olá, quero uma viagem assim: ${t.route}`)}>
@@ -368,15 +359,6 @@ export default function App() {
                       <h3 className="tp__route">{h.name}</h3>
                       <p className="tp__local">{h.local}</p>
                       <div className="tp__economy">
-                        <div className="tp__col">
-                          <span className="tp__lbl">Mercado</span>
-                          <span className="tp__orig">{h.orig}</span>
-                        </div>
-                        <div className="tp__arrow">→</div>
-                        <div className="tp__col">
-                          <span className="tp__lbl">Pago com milhas</span>
-                          <span className="tp__paid">{h.paid}</span>
-                        </div>
                         <div className="tp__tag">{h.pct}% off</div>
                       </div>
                       <button className="tp__cta" onClick={() => openWA(`Olá, quero reservar um hotel assim: ${h.name} em ${h.local}`)}>
