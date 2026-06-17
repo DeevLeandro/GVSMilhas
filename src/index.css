@@ -1220,3 +1220,78 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
   line-height: 1.55;
   font-weight: 300;
 }
+
+/* ══════════════════════════════════
+   COLE ISTO NO FINAL DO SEU CSS ATUAL
+   (seção "Como atuo / Pilares")
+══════════════════════════════════ */
+
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--rxl);
+  overflow: hidden;
+  background: var(--white);
+}
+.pillar {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 30px 30px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  transition: background 0.35s var(--ease);
+}
+.pillar:nth-child(2n) { border-right: none; }
+.pillar:nth-last-child(-n+2) { border-bottom: none; }
+.pillar:hover { background: var(--off); }
+
+.pillar__n {
+  flex-shrink: 0;
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--muted);
+  line-height: 1;
+  padding-top: 2px;
+}
+.pillar__t {
+  font-family: var(--serif);
+  font-size: 1.12rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 6px;
+  line-height: 1.25;
+}
+.pillar__d {
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: var(--dim);
+  line-height: 1.68;
+}
+
+.pillars__close {
+  margin-top: 40px;
+  text-align: center;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.pillars__close p {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--dim);
+  line-height: 1.78;
+  margin-bottom: 28px;
+}
+.pillars__close p strong { color: var(--ink); font-weight: 500; }
+
+@media (max-width: 768px) {
+  .pillars { grid-template-columns: 1fr; border-radius: var(--rl); }
+  .pillar { border-right: none; }
+  .pillar:nth-last-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .pillar:last-child { border-bottom: none; }
+  .pillars__close { margin-top: 32px; }
+}

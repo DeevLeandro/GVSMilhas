@@ -64,6 +64,15 @@ const CASES = [
   { name: 'Guilherme', pct: 77, orig: 'R$ 655.031',   saved: 'R$ 507.294', img: '/images/resultadosGuilherme.jpeg'},
 ];
 
+const PILLARS = [
+  { n: '01', t: 'Análise de perfil', d: 'Estudo sua frequência e estilo de viagem e indico os cartões de crédito e programas ideais para multiplicar suas milhas em cada rota.' },
+  { n: '02', t: 'Planejamento de acúmulo', d: 'Cada destino tem um programa mais vantajoso. Direcionando para o programa certo, sua viagem pode custar apenas a taxa de embarque — e hotéis muito abaixo do valor comercial.' },
+  { n: '03', t: 'Estratégia de multiplicação', d: 'Defino o momento exato das transferências bonificadas e cadastros. Aplicado corretamente, dobramos o número de milhas em caixa.' },
+  { n: '04', t: 'Emissões inteligentes', d: 'Uso programas internacionais que a maioria desconhece. Muitas vezes não recorremos a milhas nacionais — um dos meus principais hoje é um programa europeu de altíssimo rendimento.' },
+  { n: '05', t: 'Gestão pós-emissão', d: 'Monitoro alterações de voo e resolvo tudo diretamente com a companhia aérea. Você nunca passa por stress para solucionar um problema.' },
+  { n: '06', t: 'Monitoramento e oportunidades', d: 'Acúmulo contínuo de milhas internacionais com excelente custo por milheiro, com acesso a mais de 60 companhias parceiras no Brasil e no mundo.' },
+];
+
 export default function App() {
   const [scrolled,    setScrolled]    = useState(false);
   const [menuOpen,    setMenuOpen]    = useState(false);
@@ -129,6 +138,7 @@ export default function App() {
           <nav className={`nav${menuOpen ? ' open' : ''}`}>
             <a href="#sobre"      className="nav__a" onClick={() => setMenuOpen(false)}>Sobre</a>
             <a href="#servico"    className="nav__a" onClick={() => setMenuOpen(false)}>Serviço</a>
+            <a href="#pilares"    className="nav__a" onClick={() => setMenuOpen(false)}>Como atuo</a>
             <a href="#viagens"    className="nav__a" onClick={() => setMenuOpen(false)}>Viagens</a>
             <a href="#resultados" className="nav__a" onClick={() => setMenuOpen(false)}>Resultados</a>
             <button className="nav__cta" onClick={() => { setMenuOpen(false); openWA(); }}>
@@ -261,8 +271,47 @@ export default function App() {
               </Fade>
             ))}
           </div>
+        </div>
+      </section>
 
+      {/* ── COMO ATUO / PILARES ── */}
+      <section className="sec sec--off" id="pilares">
+        <div className="wrap">
+          <Fade className="sec__head">
+            <p className="label">Como atuo</p>
+            <h2 className="h2">Gestão de Milhas Premium é<br /><em>tempo, inteligência e exclusividade.</em></h2>
+            <p className="h2__sub">
+              Eu cuido de toda a estrutura — planejamento, otimização e estratégia — para que você
+              extraia o máximo valor dos seus pontos. Sem precisar entender regras, programas,
+              detalhes técnicos ou ler entrelinhas de contrato. Sua única tarefa é escolher o
+              destino e fazer as malas.
+            </p>
+          </Fade>
 
+          <div className="pillars">
+            {PILLARS.map((p, i) => (
+              <Fade key={i} delay={i * 0.06} className="pillar">
+                <span className="pillar__n">{p.n}</span>
+                <div className="pillar__body">
+                  <h3 className="pillar__t">{p.t}</h3>
+                  <p className="pillar__d">{p.d}</p>
+                </div>
+              </Fade>
+            ))}
+          </div>
+
+          <Fade delay={0.1}>
+            <div className="pillars__close">
+              <p>
+                Clientes com perfil <strong>Black ou Infinite</strong> já têm um enorme potencial nas
+                mãos. Mas, sem estratégia, grande parte desse valor se perde em resgates simples e
+                decisões ineficientes. Com gestão profissional, você viaja em executiva pagando preço
+                de econômica e se hospeda em hotel 5 estrelas pelo valor de um 3 ou 4 estrelas.
+                Viajar bem não deveria ser complicado — e não é.
+              </p>
+              <button className="btn-dark" onClick={() => openWA()}>Quero essa gestão</button>
+            </div>
+          </Fade>
         </div>
       </section>
 
@@ -422,10 +471,12 @@ export default function App() {
           <div className="garantia__body">
             <h3 className="garantia__title">Garantia Contratual de Resultado</h3>
             <p className="garantia__text">
-              Nosso compromisso é mensurável: <strong>se em 12 meses a economia gerada não for, no mínimo,
-              o dobro do valor investido na consultoria, devolvemos 100% do pagamento.</strong>
+              O risco é meu, não seu. Firmamos em contrato: <strong>se, em 12 meses, a economia que eu
+              gerar para você não for, no mínimo, o dobro do valor investido na consultoria, devolvo
+              100% do que você pagou.</strong> Você não está comprando uma promessa — está comprando um
+              resultado garantido por escrito.
             </p>
-            <p className="garantia__fine">Contrato registrado, métricas transparentes e auditáveis. O risco financeiro é nosso.</p>
+            <p className="garantia__fine">Critério objetivo, métricas transparentes e auditáveis, sem letras miúdas. O risco financeiro é nosso.</p>
           </div>
         </div>
       </section>
@@ -536,6 +587,7 @@ export default function App() {
           <div className="footer__links">
             <a href="#sobre">Sobre</a>
             <a href="#servico">Serviço</a>
+            <a href="#pilares">Como atuo</a>
             <a href="#viagens">Viagens &amp; Hotéis</a>
             <a href="#resultados">Resultados</a>
           </div>
