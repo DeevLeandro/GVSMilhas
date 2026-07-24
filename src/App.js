@@ -279,6 +279,7 @@ export default function App() {
                 n: '01',
                 t: 'Gestão de milhas',
                 d: 'Indicaremos os melhores cartões, transferindo e maximizando seus pontos e milhas, nas melhores janelas, mantendo seu portfólio sempre otimizado.',
+                highlight: true,
               },
               {
                 n: '02',
