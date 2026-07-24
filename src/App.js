@@ -65,11 +65,11 @@ const CASES = [
 ];
 
 const PILLARS = [
-  { n: '01', t: 'Análise de perfil', d: 'Estudo sua frequência e estilo de viagem e indico os cartões de crédito e programas ideais para multiplicar suas milhas em cada rota.' },
+  { n: '01', t: 'Análise de perfil', d: 'Estaremos sua frequência e estilo de viagens e indicaremos os cartões de crédito e programas ideais para maximizar suas milhas em cada rota.' },
   { n: '02', t: 'Planejamento de acúmulo', d: 'Cada destino tem um programa mais vantajoso. Direcionando para o programa certo, sua viagem pode custar apenas a taxa de embarque — e hotéis muito abaixo do valor comercial.' },
-  { n: '03', t: 'Estratégia de multiplicação', d: 'Defino o momento exato das transferências bonificadas e cadastros. Aplicado corretamente, dobramos o número de milhas em caixa.' },
-  { n: '04', t: 'Emissões inteligentes', d: 'Uso programas internacionais que a maioria desconhece. Muitas vezes não recorremos a milhas nacionais — um dos meus principais hoje é um programa europeu de altíssimo rendimento.' },
-  { n: '05', t: 'Gestão pós-emissão', d: 'Monitoro alterações de voo e resolvo tudo diretamente com a companhia aérea. Você nunca passa por stress para solucionar um problema.' },
+  { n: '03', t: 'Estratégia de multiplicação', d: 'Iremos definir o momento exato de transferências bonificadas e cadastros, inclusive em companhias aéreas mundiais. Aplicando corretamente, dobraremos o seu patrimônio em milhas.' },
+  { n: '04', t: 'Emissões inteligentes', d: 'Utilizaremos programas internacionais que a maioria desconhece. Muitas vezes não recorremos a milhas nacionais — um dos principais hoje é um programa europeu de altíssimo rendimento.' },
+  { n: '05', t: 'Gestão pós-emissão', d: 'Monitoramento de alterações de voo e resolução tudo diretamente com a companhia aérea. Nossos clientes nunca precisam solucionar esse tipo de problema.' },
   { n: '06', t: 'Monitoramento e oportunidades', d: 'Acúmulo contínuo de milhas internacionais com excelente custo por milheiro, com acesso a mais de 60 companhias parceiras no Brasil e no mundo.' },
 ];
 
@@ -91,7 +91,7 @@ export default function App() {
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
-  const openWA = (msg = 'Olá, gostaria de conhecer o serviço GVS Milhas.') =>
+  const openWA = (msg = 'Olá, gostaria de conhecer o serviço GVS Vip.') =>
     window.open(`https://wa.me/5547997202400?text=${encodeURIComponent(msg)}`, '_blank');
 
   const handleSubmit = async e => {
@@ -127,7 +127,7 @@ export default function App() {
             onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); setMenuOpen(false); }}>
             <span className="logo__gvs">GVS</span>
             <span className="logo__dot">·</span>
-            <span className="logo__milhas">Milhas</span>
+            <span className="logo__milhas">Vip</span>
           </a>
 
           <button className={`burger${menuOpen ? ' open' : ''}`}
@@ -138,7 +138,7 @@ export default function App() {
           <nav className={`nav${menuOpen ? ' open' : ''}`}>
             <a href="#sobre"      className="nav__a" onClick={() => setMenuOpen(false)}>Sobre</a>
             <a href="#servico"    className="nav__a" onClick={() => setMenuOpen(false)}>Serviço</a>
-            <a href="#pilares"    className="nav__a" onClick={() => setMenuOpen(false)}>Como atuo</a>
+            <a href="#pilares"    className="nav__a" onClick={() => setMenuOpen(false)}>Como atuamos</a>
             <a href="#viagens"    className="nav__a" onClick={() => setMenuOpen(false)}>Viagens</a>
             <a href="#resultados" className="nav__a" onClick={() => setMenuOpen(false)}>Resultados</a>
             <button className="nav__cta" onClick={() => { setMenuOpen(false); openWA(); }}>
@@ -166,8 +166,8 @@ export default function App() {
           </h1>
 
           <p className="hero__sub">
-            Gestão completa de pontos, reservas em Business e First Class,
-            hotéis de luxo e suporte full-service. Você só embarca.
+            Gestão completa de pontos e milhas, reservas em Business e First Class,
+            hotéis de luxo e suporte full-service. Nosso cliente apenas escolhe o destino e faz as malas.
           </p>
 
           <button className="hero__cta" onClick={() => openWA()}>
@@ -175,13 +175,14 @@ export default function App() {
           </button>
 
           <div className="hero__proof">
+            <span>+5 anos de atuação</span>
+            <span className="hp__sep">·</span>
             <span>R$ 2M+ economizados</span>
             <span className="hp__sep">·</span>
-            <span>Voos Business &amp; First</span>
+            <span>Emissões Business &amp; First</span>
             <span className="hp__sep">·</span>
-            <span>Hotéis de Luxo</span>
+            <span>Resorts All Inclusive</span>
             <span className="hp__sep">·</span>
-            <span>5 anos de atuação</span>
           </div>
         </div>
 
@@ -196,7 +197,7 @@ export default function App() {
               <img src="/images/Sobre.png" alt="Guilherme Vieira" loading="lazy" />
               <div className="about__frame-cap">
                 <strong>Guilherme Vieira</strong>
-                <span>Fundador · GVS Milhas</span>
+                <span>Fundador · GVS Vip</span>
               </div>
             </div>
           </Fade>
@@ -204,26 +205,59 @@ export default function App() {
             <p className="label">Fundador</p>
             <h2 className="h2">Guilherme Vieira</h2>
             <p className="about__p">
-              Nascido em Balneário Camboriú e formado em Engenharia Civil, construí minha trajetória unindo visão estratégica, gestão e excelência em atendimento de alto padrão.
-              Há mais de 5 anos atuo como especialista em emissões avançadas de passagens em Classe Executiva e Primeira Classe, gerenciando viagens para executivos, empresários e famílias de alto patrimônio que valorizam conforto, exclusividade e otimização inteligente de recursos.
-              A GVS não é uma agência de viagens tradicional. Somos um serviço privado de gestão estratégica de viagens. Ao se tornar cliente, você não contrata apenas uma emissão de passagem: você passa a contar com um departamento completo de viagens dedicado a cuidar de cada detalhe do seu deslocamento, desde o planejamento e emissão até o suporte e acompanhamento contínuo.
-              Nossa missão é transformar viagens em experiências mais confortáveis, eficientes e exclusivas, utilizando inteligência em milhas, benefícios e oportunidades que normalmente não estão disponíveis ao público em geral.
+              Nascido em Balneário Camboriú e formado em Engenharia Civil, construimos nossa trajetória unindo visão estratégica, gestão e excelência em atendimento de alto padrão.
+              Há mais de 5 anos atuamos como especialistas em emissões avançadas de passagens em Classe Executiva e Primeira Classe, gerenciando viagens para executivos, empresários e famílias de alto patrimônio que valorizam conforto, exclusividade e otimização inteligente de recursos.
+              A GVS não é uma agência de viagens, somos um serviço privado com metodologia exclusiva de gestão estratégica de viagens. Ao se tornar cliente, você não contrata apenas emissões de passagens: você passa a contar com um departamento completo dedicado a cuidar de cada detalhe e planejamento, com todo o suporte e acompanhamento proximo e humanizado.
+              Nossa missão é elevar o padrão das suas viagens, com muita eficiencia e exclusividade, utilizando nossa expertise em pontos e milhas, benefícios e oportunidades que normalmente não estão disponíveis ao público em geral.
             </p>
-            <div className="about__stats">
+           <div className="about__stats">
               <div className="astat">
-                <span className="astat__v">R$ 2M+</span>
-                <span className="astat__l">economizados</span>
-              </div>
-              <div className="astat">
-                <span className="astat__v">100%</span>
-                <span className="astat__l">Business ou First</span>
-              </div>
-              <div className="astat">
-                <span className="astat__v">5 anos</span>
-                <span className="astat__l">de atuação</span>
-              </div>
-            </div>
-            <button className="btn-dark" onClick={() => openWA()}>Falar com Guilherme</button>
+    <div className="astat__icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.1">
+        <path d="M12 2.5l2.1 1.6 2.6-.3 1 2.4 2.3 1.2-.6 2.6.6 2.6-2.3 1.2-1 2.4-2.6-.3L12 21.5l-2.1-1.6-2.6.3-1-2.4-2.3-1.2.6-2.6-.6-2.6 2.3-1.2 1-2.4 2.6.3z"
+              strokeLinejoin="round"/>
+        <path d="M9 12l2 2 4-4" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    </div>
+    <span className="astat__v">Economia Comprovada</span>
+    <span className="astat__l">100% Business &amp; First Class.</span>
+  </div>
+  <div className="astat">
+    <div className="astat__icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.1">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M15.5 8.5l-2 5-5 2 2-5z" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    </div>
+    <span className="astat__v">Estratégia Inteligente</span>
+    <span className="astat__l">Faremos uma análise do seu perfil, com as melhores oportunidades do mercado.</span>
+  </div>
+
+  <div className="astat">
+    <div className="astat__icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.1">
+        <path d="M4 13v-1a8 8 0 0116 0v1" strokeLinecap="round"/>
+        <rect x="2.5" y="13" width="4" height="6" rx="1.6"/>
+        <rect x="17.5" y="13" width="4" height="6" rx="1.6"/>
+        <path d="M19.5 19v.5a2.5 2.5 0 01-2.5 2.5h-2.5" strokeLinecap="round"/>
+      </svg>
+    </div>
+    <span className="astat__v">Suporte Full-Service</span>
+    <span className="astat__l">Do inicio ao fim da sua viagem, cuidaremos de tudo para você.</span>
+  </div>
+
+  <div className="astat">
+    <div className="astat__icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.1">
+        <path d="M6 3h12l3 5-9 13L3 8z" strokeLinejoin="round"/>
+        <path d="M3 8h18M9 3l-3 5 6 13 6-13-3-5" strokeLinejoin="round"/>
+      </svg>
+    </div>
+    <span className="astat__v">Acesso ao Melhor</span>
+    <span className="astat__l">Parceiros exclusivos, acesso aos melhores hotéis do mundo.</span>
+  </div>
+</div>
+            <button className="btn-dark" onClick={() => openWA()}>Falar com nossa equipe</button>
           </Fade>
         </div>
       </section>
@@ -234,8 +268,8 @@ export default function App() {
           <Fade className="sec__head">
             <h2 className="h2">Não somos uma agência.<br /><em>Somos concierge vip.</em></h2>
             <p className="h2__sub">
-              Você contrata uma vez. A partir daí, nós fazemos tudo —
-              da estratégia de pontos à reserva do seu quarto no hotel.
+              Ao se tornar cliente da GVS VIP, você passa a contar com um departamento privado de gestão de viagens, cuidaremos de cada etapa da sua jornada —
+              desde as estratégias de pontos e milhas até seu retorno para casa.
             </p>
           </Fade>
           <p className="label">O que entregamos</p>
@@ -244,7 +278,7 @@ export default function App() {
               {
                 n: '01',
                 t: 'Gestão de milhas',
-                d: 'Analisamos seus cartões, transferimos pontos nas melhores janelas e mantemos seu portfólio sempre otimizado.',
+                d: 'Indicaremos os melhores cartões, transferindo e maximizando seus pontos e milhas, nas melhores janelas, mantendo seu portfólio sempre otimizado.',
               },
               {
                 n: '02',
@@ -254,18 +288,17 @@ export default function App() {
               {
                 n: '03',
                 t: 'Hotéis de Luxo',
-                d: 'Reservamos Four Seasons, Aman, Park Hyatt e outros com pontos ou tarifas preferenciais. Milhas não são só para voos.',
+                d: 'Reservas nas redes Fairmont, Raffles, Rixos, Mandarin Oriental, Hyatt, Pullman, Sofitel entre outros. Muitos não sabem mais milhas não utilizamos somente para voos.',
                 highlight: true,
               },
               {
                 n: '04',
                 t: 'Suporte full-service',
-                d: 'Um consultor dedicado disponível para qualquer necessidade — mudanças de rota, emergências ou novos roteiros.',
+                d: 'Uma equipe dedicada disponível para qualquer necessidade — mudanças de rota, upgrades, novas reservas, novos roteiros ou emergências, sempre com atendimento prioritário.',
               },
             ].map((s, i) => (
               <Fade key={i} delay={i * 0.07} className={`service${s.highlight ? ' service--hotel' : ''}`}>
                 <span className="service__n">{s.n}</span>
-                {s.highlight && <span className="service__tag">Muitos não sabem</span>}
                 <h3 className="service__t">{s.t}</h3>
                 <p className="service__d">{s.d}</p>
               </Fade>
@@ -279,12 +312,12 @@ export default function App() {
         <div className="wrap">
           <Fade className="sec__head">
             <p className="label">Como atuo</p>
-            <h2 className="h2">Gestão de Milhas Premium é<br /><em>tempo, inteligência e exclusividade.</em></h2>
+            <h2 className="h2">Gestão de Milhas Premium é<br /><em>tempo livre para nossos clientes com muita economia e resultados que surpreendem.</em></h2>
             <p className="h2__sub">
-              Eu cuido de toda a estrutura — planejamento, otimização e estratégia — para que você
-              extraia o máximo valor dos seus pontos. Sem precisar entender regras, programas,
-              detalhes técnicos ou ler entrelinhas de contrato. Sua única tarefa é escolher o
-              destino e fazer as malas.
+              Nós cuidamos de toda a estrutura — planejamento, otimização e estratégias avançadas — para que você
+              viva experiências memoráveis com seus pontos e milhas, sem precisar entender regras, programas,
+              detalhes técnicos ou ler as entrelinhas de contrato. Seu tempo é o seu ativo mais valioso. Nossa missão é garantir que ele seja investido vivendo, enquanto nós cuidamos de todas as estratégias por trás de cada viagem.
+              Apenas escolha o destino e faça as malas.
             </p>
           </Fade>
 
@@ -598,7 +631,7 @@ export default function App() {
           </div>
         </div>
         <div className="footer__btm">
-          <p>© {new Date().getFullYear()} GVS Milhas</p>
+          <p>© {new Date().getFullYear()} GVS Vip</p>
         </div>
       </footer>
 
