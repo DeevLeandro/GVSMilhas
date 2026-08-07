@@ -359,9 +359,9 @@ function MultiStepForm({ openWA }) {
           <div className="ff">
             <label>Média de gasto mensal no cartão *</label>
             <div className="ms-radio-group ms-radio-group--cols">
-              <Radio name="gasto" value="R$20k-R$25k" label="R$ 20k – R$ 25k" />
-              <Radio name="gasto" value="R$30k-R$40k" label="R$ 30k – R$ 40k" />
-              <Radio name="gasto" value="Acima R$50k" label="Acima de R$ 50k" />
+              <Radio name="gasto" value="R$50k-R$55k" label="R$ 50k – R$ 55k" />
+              <Radio name="gasto" value="R$70k-R$80k" label="R$ 70k – R$ 80k" />
+              <Radio name="gasto" value="Acima R$100k" label="Acima de R$ 100k" />
             </div>
           </div>
           <div className="ff">
@@ -864,15 +864,15 @@ export default function App() {
             <p className="label label--dim">Acesso ao serviço</p>
             <h2 className="h2 h2--w">Diagnóstico<br /><em>personalizado.</em></h2>
             <p className="contact__sub">
-              Preencha o formulário. para que possamos entender melhor seu perfil e apresenta
+              Preencha o formulário, para que possamos entender melhor seu perfil e apresentar
               sua estratégia de economia.
             </p>
             <div className="contact__items">
               <div className="ci"><span className="ci__n">01</span><p>Você nos conta seus destinos e cartões</p></div>
               <div className="ci"><span className="ci__n">02</span><p>Nós montamos sua estratégia de pontos</p></div>
-              <div className="ci"><span className="ci__n">03</span><p>Você embarca — voos e hotéis. Nós cuidamos de tudo</p></div>
+              <div className="ci"><span className="ci__n">03</span><p>Você embarca. Nós cuidamos de tudo</p></div>
             </div>
-            <p className="contact__note">Serviço disponível para gastos acima de <strong>R$ 20.000/mês</strong></p>
+            <p className="contact__note">Serviço disponível para gastos acima de <strong>R$ 50.000/mês</strong></p>
           </Fade>
 
           <Fade delay={0.1} className="contact__form-wrap">
