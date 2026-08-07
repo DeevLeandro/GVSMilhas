@@ -872,7 +872,7 @@ export default function App() {
               <div className="ci"><span className="ci__n">02</span><p>Nós montamos sua estratégia de pontos</p></div>
               <div className="ci"><span className="ci__n">03</span><p>Você embarca — voos e hotéis. Nós cuidamos de tudo</p></div>
             </div>
-            <p className="contact__note">Serviço disponível para gastos acima de <strong>R$ 15.000/mês</strong></p>
+            <p className="contact__note">Serviço disponível para gastos acima de <strong>R$ 20.000/mês</strong></p>
           </Fade>
 
           <Fade delay={0.1} className="contact__form-wrap">
