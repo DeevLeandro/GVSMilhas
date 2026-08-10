@@ -719,7 +719,7 @@ export default function App() {
         <div className="wrap">
           <Fade className="sec__head">
             <p className="label label--dim">Exemplos reais · Voos e Hotéis</p>
-            <h2 className="h2 h2--w">Economia comprovada.<br /><em></em></h2>
+            <h2 className="h2 h2--w">Economias comprovadas.<br /><em></em></h2>
           </Fade>
           <div className="vtabs">
             <button className={`vtab${viagens_tab === 'voos' ? ' vtab--active' : ''}`} onClick={() => setViagensTab('voos')}>
