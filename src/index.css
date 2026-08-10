@@ -6,10 +6,10 @@
 :root {
   --ink:    #0f0f0e;
   --ink-2:  #1a1a19;
-  --ink-3:  #2e2e2c;
-  --dim:    #2e2e2e;
-  --muted:  #595959;
-  --line:   #adadad;
+  --ink-3:  #0e0e0e;
+  --dim:    #0c0c0c;
+  --muted:  #181818;
+  --line:   #4f4f4f;
   --off:    #f6f5f2;
   --white:  #fafaf8;
 

@@ -493,11 +493,14 @@ const HOTELS = [
 ];
 
 const CASES = [
-  { name: 'Cesar',     pct: 46, orig: 'R$ 310.297',   saved: 'R$ 142.232', img: '/images/resultadoCesar.jpeg' },
-  { name: 'Marco',     pct: 38, orig: 'R$ 1.056.884', saved: 'R$ 401.108', img: '/images/resultadosMarco.jpeg' },
-  { name: 'Raritom', pct: 48.85, orig: 'R$ 196.212', saved: 'R$ 95.865', img: '/images/RaritomEconomia.png' },
-  { name: 'Guilherme', pct: 77, orig: 'R$ 655.031',   saved: 'R$ 507.294', img: '/images/resultadosGuilherme.jpeg' },
-
+  { name: 'Cesar',            pct: 61, orig: 'R$ 236.608', saved: 'R$ 143.739', img: '/images/CesarEconomia.png' },
+  { name: 'Marco',            pct: 64, orig: 'R$ 644.383', saved: 'R$ 414.818', img: '/images/MarcoEconomia.png' },
+  { name: 'Raritom',          pct: 96, orig: 'R$ 100.348', saved: 'R$  95.865', img: '/images/RaritomEconomia.png' },
+  { name: 'Guilherme',        pct: 72, orig: 'R$ 848.593', saved: 'R$ 612.718', img: '/images/GuilhermeEconomia.png' },
+  { name: 'Diego',            pct: 39, orig: 'R$ 152.075', saved: 'R$  59.302', img: '/images/DiegoEconomia.png' },
+  { name: 'Guilherme Mallon', pct: 73, orig: 'R$  67.742', saved: 'R$  49.179', img: '/images/GuiMallonEconomia.png' },
+  { name: 'Rodrigo',          pct: 45, orig: 'R$ 154.816', saved: 'R$  70.138', img: '/images/RodrigoEconomia.png' },
+  { name: 'Tharsa',           pct: 47, orig: 'R$  90.988', saved: 'R$  42.319', img: '/images/TharsaEconomia.png' },
 ];
 
 const FEEDBACKS = [
