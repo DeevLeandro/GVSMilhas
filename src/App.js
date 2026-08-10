@@ -473,18 +473,31 @@ const TRIPS = [
   { route: 'Paris → Doha → Bangkok',  cabin: 'Business · First Class · Qatar Airways',    pct: '81,78', img: '/images/Bankog.png' },
   { route: 'Singapura → Bangkok',     cabin: 'Business · Singapore Airlines',             pct: '45,84', img: '/images/cliente-singapore.jpeg' },
   { route: 'Istambul → Guarulhos',    cabin: 'Business · Turkish Airlines',               pct: '85,95', img: '/images/foto.jpeg' },
+  { route: 'Male → Doha',             cabin: 'Business · Qatar Airways',                  pct: '75,83', img: '/images/cliente-qatar.jpeg' },
 ];
 
 const HOTELS = [
-  { name: 'Pullman Paris Tour Eiffel',     local: 'Pullman Paris Tour Eiffel · Paris',          pct: '50',    noites: '2 noites · Deluxe Suite', img: '/images/Hotel-Paris.png' },
-  { name: 'Rixos Premium Saadiyat Island', local: 'Rixos Premium Saadiyat Island · Abu Dhabi',  pct: '46,72', noites: '7 noites · Deluxe Suite', img: '/images/Hotel-Abu-Dhabi.jpeg' },
-  { name: 'Fairmont Doha',                 local: 'Fairmont Doha · Qatar',                       pct: '48,40', noites: '3 noites · Gold King',    img: '/images/Fairmont-Doha.png' },
+  { name: 'Pullman Paris Tour Eiffel',         local: 'Pullman Paris Tour Eiffel · Paris',          pct: '50',    noites: '2 noites · Deluxe Suite', img: '/images/Hotel-Paris.png' },
+  { name: 'Rixos Premium Saadiyat Island',     local: 'Rixos Premium Saadiyat Island · Abu Dhabi',  pct: '46,72', noites: '7 noites · Deluxe Suite', img: '/images/Hotel-Abu-Dhabi.jpeg' },
+  { name: 'Fairmont Doha',                     local: 'Fairmont Doha · Qatar',                      pct: '48,40', noites: '3 noites · Gold King',    img: '/images/Fairmont-Doha.png' },
+  { name: 'Joy Island Maldivas',               local: 'Joy Island · Maldivas',                      pct: '20,08', noites: '7 noites ·',   img: '/images/JoyIslandMaldivas.png' },
+  { name: 'Heritance Aarah Maldivas',          local: 'Heritance Aarah · Maldivas',                 pct: '21,70', noites: '7 noites ·',   img: '/images/HeritanceAarahMaldivas.png' },
+  { name: 'You & Me Maldivas',                 local: 'You & Me · Maldivas',                        pct: '18,20', noites: '7 noites ·',   img: '/images/You&MeMaldivas.png' },
+  { name: 'Secrets Baby Beach Aruba By Hyatt', local: 'Secrets Baby Beach Aruba By Hyatt · Aruba',  pct: '48,75', noites: '4 noites · Deluxe Suite', img: '/images/aruba.jpeg' },
+  { name: 'Riviera Maya',                      local: 'Riviera Maya · Mexico',                      pct: '40,65', noites: '7 noites ·',   img: '/images/riviera.jpeg' },
+  { name: 'Paradox Phuket Resort Tailândia',   local: 'Paradox Phuket Resort · Tailândia',          pct: '16,43', noites: '5 noites ·',   img: '/images/ParadoxPhuketResortTailândia.png' },
+  { name: 'Hard Rock Cancún',                  local: 'Hard Rock · Cancún',                         pct: '32', noites: '7 noites ·',      img: '/images/HardRockCancun.jpeg' },
+  { name: 'Carus Cave Capadócia',              local: 'Carus Cave · Capadócia',                     pct: '15,35', noites: '7 noites ·',   img: '/images/CarusCaveCapadocia.png' },
+  { name: 'Sofitel Abu Dhabi',                 local: 'Sofitel · Abu Dhabi',                        pct: '40', noites: '2 noites ·',      img: '/images/SofitelAbuDhabi.png' },
+  { name: 'Sofitel Singapura',                 local: 'Sofitel · Singapura',                        pct: '39,50', noites: '4 noites ·',   img: '/images/SofitelSingapura.png' },
 ];
 
 const CASES = [
   { name: 'Cesar',     pct: 46, orig: 'R$ 310.297',   saved: 'R$ 142.232', img: '/images/resultadoCesar.jpeg' },
   { name: 'Marco',     pct: 38, orig: 'R$ 1.056.884', saved: 'R$ 401.108', img: '/images/resultadosMarco.jpeg' },
+  { name: 'Raritom', pct: 48.85, orig: 'R$ 196.212', saved: 'R$ 95.865', img: '/images/RaritomEconomia.png' },
   { name: 'Guilherme', pct: 77, orig: 'R$ 655.031',   saved: 'R$ 507.294', img: '/images/resultadosGuilherme.jpeg' },
+
 ];
 
 const FEEDBACKS = [
@@ -609,7 +622,7 @@ export default function App() {
                     <path d="M9 12l2 2 4-4" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
-                <span className="astat__v">Economia Comprovada</span>
+                <span className="astat__v">Economias Reais</span>
                 <span className="astat__l">100% Business &amp; First Class.</span>
               </div>
               <div className="astat">
@@ -798,8 +811,8 @@ export default function App() {
       <section className="sec" id="resultados">
         <div className="wrap">
           <Fade className="sec__head">
-            <p className="label">Resultados de clientes</p>
-            <h2 className="h2">Economia comprovada<br /><em>em números reais</em></h2>
+            <p className="label"></p>
+            <h2 className="h2">Alguns resultados de nossos clientes<br /><em></em></h2>
           </Fade>
           <div className="cases">
             {CASES.map((c, i) => (
