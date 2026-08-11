@@ -467,7 +467,7 @@ function MultiStepForm({ openWA }) {
 }
 
 const TRIPS = [
-  { route: 'Paris → Abu Dhabi',       cabin: 'First Class · EtiHad Airways',              pct: '74,38', img: '/images/Itira.jpeg' },
+  { route: 'Paris → Abu Dhabi',       cabin: 'First Class · Etihad Airways',              pct: '74,38', img: '/images/Itira.jpeg' },
   { route: 'Bangkok → Maldivas',      cabin: 'First Class · Qatar Airways',               pct: '68,81', img: '/images/Doha.png' },
   { route: 'Guarulhos → Paris',       cabin: 'Business Class · Air France',               pct: '72,07', img: '/images/cliente-maldives.jpeg' },
   { route: 'Paris → Doha → Bangkok',  cabin: 'Business · First Class · Qatar Airways',    pct: '81,78', img: '/images/Bankog.png' },
@@ -493,30 +493,30 @@ const HOTELS = [
 ];
 
 const CASES = [
-  { name: 'Cesar',            pct: 61, orig: 'R$ 236.608', saved: 'R$ 143.739', img: '/images/CesarEconomia.png' },
-  { name: 'Marco',            pct: 64, orig: 'R$ 644.383', saved: 'R$ 414.818', img: '/images/MarcoEconomia.png' },
-  { name: 'Raritom',          pct: 96, orig: 'R$ 100.348', saved: 'R$  95.865', img: '/images/RaritomEconomia.png' },
-  { name: 'Guilherme',        pct: 72, orig: 'R$ 848.593', saved: 'R$ 612.718', img: '/images/GuilhermeEconomia.png' },
-  { name: 'Diego',            pct: 39, orig: 'R$ 152.075', saved: 'R$  59.302', img: '/images/DiegoEconomia.png' },
-  { name: 'Guilherme Mallon', pct: 73, orig: 'R$  67.742', saved: 'R$  49.179', img: '/images/GuiMallonEconomia.png' },
-  { name: 'Rodrigo',          pct: 45, orig: 'R$ 154.816', saved: 'R$  70.138', img: '/images/RodrigoEconomia.png' },
-  { name: 'Tharsa',           pct: 47, orig: 'R$  90.988', saved: 'R$  42.319', img: '/images/TharsaEconomia.png' },
+  { name: 'Cesar A',            pct: 61, saved: 'R$ 143.739', img: '/images/CesarEconomia.png' },
+  { name: 'Marco C',            pct: 64, saved: 'R$ 414.818', img: '/images/MarcoEconomia.png' },
+  { name: 'Raritom P',          pct: 96, saved: 'R$  95.865', img: '/images/RaritomEconomia.png' },
+  { name: 'Guilherme V',        pct: 72, saved: 'R$ 612.718', img: '/images/GuilhermeEconomia.png' },
+  { name: 'Diego C',            pct: 39, saved: 'R$  59.302', img: '/images/DiegoEconomia.png' },
+  { name: 'Guilherme M',        pct: 73, saved: 'R$  49.179', img: '/images/GuiMallonEconomia.png' },
+  { name: 'Rodrigo C',          pct: 45, saved: 'R$  70.138', img: '/images/RodrigoEconomia.png' },
+  { name: 'Tharsa C',           pct: 47, saved: 'R$  42.319', img: '/images/TharsaEconomia.png' },
 ];
 
 const FEEDBACKS = [
   { id: 1, nome: 'Gui M',      estrelas: 5, img: '/images/Comentario1.jpeg' },
   { id: 2, nome: 'Marco C',    estrelas: 5, img: '/images/Comentario2.jpeg' },
   { id: 3, nome: 'Tharsa C',   estrelas: 5, img: '/images/comentario3.jpeg' },
-  { id: 4, nome: 'Ana Luisa F',   estrelas: 5, img: '/images/comentario4.jpeg' },
-  
+  { id: 4, nome: 'Tharsa C',   estrelas: 5, img: '/images/comentario3b.jpeg' },
+  { id: 5, nome: 'Ana Luisa F', estrelas: 5, img: '/images/comentario4.jpeg' },
 ];
 
 const PILLARS = [
-  { n: '01', t: 'Análise de perfil',           d: 'Estaremos sua frequência e estilo de viagens e indicaremos os cartões de crédito e programas ideais para maximizar suas milhas em cada rota.' },
+  { n: '01', t: 'Análise de perfil',           d: 'Analisaremos sua frequência e estilo de viagens e indicaremos os cartões de crédito e programas ideais para maximizar suas milhas em cada rota.' },
   { n: '02', t: 'Planejamento de acúmulo',     d: 'Cada destino tem um programa mais vantajoso. Direcionando para o programa certo, sua viagem pode custar apenas a taxa de embarque — e hotéis muito abaixo do valor comercial.' },
   { n: '03', t: 'Estratégia de multiplicação', d: 'Iremos definir o momento exato de transferências bonificadas e cadastros, inclusive em companhias aéreas mundiais. Aplicando corretamente, dobraremos o seu patrimônio em milhas.' },
   { n: '04', t: 'Emissões inteligentes',       d: 'Utilizaremos programas internacionais que a maioria desconhece. Muitas vezes não recorremos a milhas nacionais — um dos principais hoje é um programa europeu de altíssimo rendimento.' },
-  { n: '05', t: 'Gestão pós-emissão',          d: 'Monitoramento de alterações de voo e resolução tudo diretamente com a companhia aérea. Nossos clientes nunca precisam solucionar esse tipo de problema.' },
+  { n: '05', t: 'Check-in online',             d: 'Realizamos o check-in online antecipado para você, garantindo os melhores assentos disponíveis e evitando que você precise se preocupar com prazos ou filas. Tudo resolvido de forma rápida e digital.' },
   { n: '06', t: 'Monitoramento e oportunidades', d: 'Acúmulo contínuo de milhas internacionais com excelente custo por milheiro, com acesso a mais de 60 companhias parceiras no Brasil e no mundo.' },
 ];
 
@@ -698,10 +698,10 @@ export default function App() {
       <section className="sec sec--off" id="pilares">
         <div className="wrap">
           <Fade className="sec__head">
-            <p className="label">Como atuo</p>
+            <p className="label">Como atuamos</p>
             <h2 className="h2">Gestão de Milhas Premium é<br /><em>tempo livre para nossos clientes com muita economia e resultados que surpreendem.</em></h2>
             <p className="h2__sub">
-              Nós cuidamos de toda a estrutura — planejamento, otimização e estratégias avançadas — para que você
+              Nós cuidamos de toda a estrutura — planejamento, otimização e estratégias avançadas para que você
               viva experiências memoráveis com seus pontos e milhas, sem precisar entender regras, programas,
               detalhes técnicos ou ler as entrelinhas de contrato. Seu tempo é o seu ativo mais valioso. Nossa missão é garantir que ele seja investido vivendo, enquanto nós cuidamos de todas as estratégias por trás de cada viagem.
               Apenas escolha o destino e faça as malas.
@@ -720,10 +720,11 @@ export default function App() {
           </div>
           <Fade delay={0.1}>
             <div className="pillars__close">
+              {/* CORRIGIDO: </p> antes de abrir outro <p> */}
               <p>
-                <strong>Você que já é cliente Black ou Infinit, saiba que já possui um enorme potencial em suas mãos. Mas sem a estratégia correta e direcionada, grande parte desse potencial se perde em resgates simples e decisões ineficientes. Com gestão profissional, você viaja em classe executiva investindo valor de econômica e se hospeda em hoteis 5 estrelas pelo mundo com valor de 3 ou 4 estrelas. Viajar bem não deveria ser complicado e não é!</strong>
-                <p><strong>"CONFIE EM QUEM VIVE A EXPERIÊNCIA."</strong></p>
+                <strong>Você, que já é cliente Black ou Infinite, saiba que já possui um enorme potencial em suas mãos. Mas, sem a estratégia correta e direcionada, grande parte desse potencial se perde em resgates simples e decisões ineficientes. Com gestão profissional, você viaja em classe executiva investindo o valor de econômica e se hospeda em hotéis 5 estrelas pelo mundo com o valor de 3 ou 4 estrelas. Viajar bem não deveria ser complicado, e não é!</strong>
               </p>
+              <p><strong>"CONFIE EM QUEM VIVE A EXPERIÊNCIA."</strong></p>
               <button className="btn-dark" onClick={() => openWA()}>Contratar GVS VIP</button>
             </div>
           </Fade>
@@ -828,8 +829,6 @@ export default function App() {
                   <div className="case__body">
                     <p className="case__name">{c.name}</p>
                     <div className="case__nums">
-                      <span className="case__orig">{c.orig}</span>
-                      <span>→</span>
                       <span className="case__saved">{c.saved}</span>
                     </div>
                     <div className="case__bar"><div className="case__fill" style={{ width: `${c.pct}%` }} /></div>
@@ -913,7 +912,7 @@ export default function App() {
           <div className="footer__links">
             <a href="#sobre">Sobre</a>
             <a href="#servico">Serviço</a>
-            <a href="#pilares">Como atuo</a>
+            <a href="#pilares">Como atuamos</a>
             <a href="#viagens">Viagens &amp; Hotéis</a>
             <a href="#resultados">Resultados</a>
             <a href="#feedbacks">Feedbacks</a>
@@ -937,4 +936,3 @@ export default function App() {
     </div>
   );
 }
-
