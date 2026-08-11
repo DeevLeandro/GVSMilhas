@@ -484,7 +484,7 @@ const HOTELS = [
   { name: 'Heritance Aarah Maldivas',          local: 'Heritance Aarah · Maldivas',                 pct: '21,70', noites: '7 noites ·',   img: '/images/HeritanceAarahMaldivas.png' },
   { name: 'You & Me Maldivas',                 local: 'You & Me · Maldivas',                        pct: '18,20', noites: '7 noites ·',   img: '/images/You&MeMaldivas.png' },
   { name: 'Secrets Baby Beach Aruba By Hyatt', local: 'Secrets Baby Beach Aruba By Hyatt · Aruba',  pct: '48,75', noites: '4 noites · Deluxe Suite', img: '/images/aruba.jpeg' },
-  { name: 'Riviera Maya',                      local: 'Riviera Maya · Mexico',                      pct: '40,65', noites: '7 noites ·',   img: '/images/riviera.jpeg' },
+  { name: 'Unico 2087 Riviera Maya',           local: 'Unico 2087 · Riviera Maya Mexico',                      pct: '40,65', noites: '7 noites ·',   img: '/images/riviera.jpeg' },
   { name: 'Paradox Phuket Resort Tailândia',   local: 'Paradox Phuket Resort · Tailândia',          pct: '16,43', noites: '5 noites ·',   img: '/images/ParadoxPhuketResortTailândia.png' },
   { name: 'Hard Rock Cancún',                  local: 'Hard Rock · Cancún',                         pct: '32', noites: '7 noites ·',      img: '/images/HardRockCancun.jpeg' },
   { name: 'Carus Cave Capadócia',              local: 'Carus Cave · Capadócia',                     pct: '15,35', noites: '7 noites ·',   img: '/images/CarusCaveCapadocia.png' },
