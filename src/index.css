@@ -1137,10 +1137,45 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
     border-left: 1px solid rgba(255,255,255,0.04);
   }
   .nav.open { right: 0; }
-
-  .nav__a { font-size: 0.9rem; 
-           color: #f6f5f2;}
+  .nav__a { font-size: 0.9rem; }
   .nav__cta { text-align: center; }
+
+  /* CORREÇÃO: Menu aberto sempre com letras brancas */
+  .nav.open .nav__a {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+  
+  .nav.open .nav__a:hover {
+    color: rgba(255, 255, 255, 0.95) !important;
+  }
+  
+  .nav.open .nav__a::after {
+    background: rgba(255, 255, 255, 0.4) !important;
+  }
+  
+  .nav.open .nav__cta {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  }
+  
+  .nav.open .nav__cta:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+  }
+
+  /* Burger sempre visível */
+  .burger span {
+    background: var(--white);
+  }
+  
+  .hdr--s .burger:not(.open) span {
+    background: var(--ink);
+  }
+  
+  .burger.open span {
+    background: var(--white) !important;
+  }
 
   .services { grid-template-columns: 1fr; border-radius: var(--rl); }
   .service { border-right: none; border-bottom: 1px solid var(--line); }
@@ -1232,7 +1267,6 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
     padding: 3px 8px;
   }
   
-  /* ── CORREÇÃO: botão no mobile ocupa toda largura mas fica bonito ── */
   .tp__cta {
     font-size: 0.65rem;
     padding: 10px 16px;
