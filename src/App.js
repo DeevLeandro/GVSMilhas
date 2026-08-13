@@ -509,7 +509,7 @@ const FEEDBACKS = [
   { id: 3, nome: 'Tharsa C',   estrelas: 5, img: '/images/comentario3.jpeg' },
   { id: 4, nome: 'Tharsa C',   estrelas: 5, img: '/images/comentario3b.jpeg' },
   { id: 5, nome: 'Ana Luisa F', estrelas: 5, img: '/images/comentario4.jpeg' },
-  { id: 5, nome: 'Alexsandra M', estrelas: 5, img: '/images/comentario5.jpeg' },
+  { id: 6, nome: 'Alexsandra M', estrelas: 5, img: '/images/comentario5.jpeg' },
 ];
 
 const PILLARS = [
