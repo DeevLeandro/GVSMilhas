@@ -43,51 +43,223 @@ function Modal({ src, onClose }) {
   );
 }
 
+/* ══════════════════════════════════════════════
+   FEEDBACK CAROUSEL
+══════════════════════════════════════════════ */
 function FeedbackCarousel({ items, itemsPerPage = 3, onImageClick }) {
   const [currentPage, setCurrentPage] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  
   const totalPages = Math.max(1, Math.ceil(items.length / itemsPerPage));
-  const nextPage = () => setCurrentPage((prev) => (prev + 1) % totalPages);
-  const prevPage = () => setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
   const startIndex = currentPage * itemsPerPage;
   const currentItems = items.slice(startIndex, startIndex + itemsPerPage);
-  while (currentItems.length < itemsPerPage) {
-    currentItems.push({ id: `placeholder-${currentItems.length}`, img: null, nome: null, estrelas: 0 });
+
+  // Preenche com placeholders apenas se necessário
+  const displayItems = [...currentItems];
+  while (displayItems.length < itemsPerPage && displayItems.length < items.length) {
+    displayItems.push({ id: `placeholder-${displayItems.length}`, img: null, nome: null, estrelas: 0 });
   }
-  const renderStars = (count) => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(<span key={`star-${i}`} className={`feedback-star ${i <= count ? 'feedback-star--full' : 'feedback-star--empty'}`}>★</span>);
-    }
-    return stars;
+
+  const nextPage = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentPage((prev) => (prev + 1) % totalPages);
+    setTimeout(() => setIsTransitioning(false), 300);
   };
+
+  const prevPage = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
+    setTimeout(() => setIsTransitioning(false), 300);
+  };
+
+  const renderStars = (count) => {
+    return Array.from({ length: 5 }, (_, i) => (
+      <span key={i} className={`feedback-star ${i < count ? 'feedback-star--full' : 'feedback-star--empty'}`}>★</span>
+    ));
+  };
+
+  if (items.length === 0) return null;
+
   return (
     <div className="feedback-carousel">
       <div className="feedback-carousel__wrapper">
-        {totalPages > 1 && <button className="feedback-carousel__arrow feedback-carousel__arrow--prev" onClick={prevPage}>‹</button>}
+        {totalPages > 1 && (
+          <button 
+            className="feedback-carousel__arrow feedback-carousel__arrow--prev" 
+            onClick={prevPage}
+            aria-label="Anterior"
+          >
+            ‹
+          </button>
+        )}
+        
         <div className="feedback-carousel__track">
-          {currentItems.map((item, index) => (
+          {displayItems.map((item, index) => (
             <div key={item.id || index} className="feedback-carousel__slide">
               {item.img ? (
-                <div className="feedback-card" onClick={() => onImageClick(item.img)}>
+                <div className="feedback-card" onClick={() => onImageClick?.(item.img)}>
                   <img src={item.img} alt={`Feedback de ${item.nome || 'Cliente'}`} loading="lazy" />
                   <div className="feedback-card__info">
                     {item.nome && <span className="feedback-card__nome">{item.nome}</span>}
-                    {item.estrelas > 0 && <div className="feedback-card__stars">{renderStars(item.estrelas)}</div>}
+                    {item.estrelas > 0 && (
+                      <div className="feedback-card__stars">{renderStars(item.estrelas)}</div>
+                    )}
                     <span className="feedback-card__ver">Clique para ampliar</span>
                   </div>
                 </div>
               ) : (
-                <div className="feedback-card feedback-card--placeholder"><span>📷</span></div>
+                <div className="feedback-card feedback-card--placeholder">
+                  <span>📷</span>
+                </div>
               )}
             </div>
           ))}
         </div>
-        {totalPages > 1 && <button className="feedback-carousel__arrow feedback-carousel__arrow--next" onClick={nextPage}>›</button>}
+
+        {totalPages > 1 && (
+          <button 
+            className="feedback-carousel__arrow feedback-carousel__arrow--next" 
+            onClick={nextPage}
+            aria-label="Próximo"
+          >
+            ›
+          </button>
+        )}
       </div>
+
       {totalPages > 1 && (
         <div className="feedback-carousel__dots">
           {Array.from({ length: totalPages }).map((_, i) => (
-            <button key={i} className={`feedback-carousel__dot ${i === currentPage ? 'feedback-carousel__dot--active' : ''}`} onClick={() => setCurrentPage(i)} />
+            <button
+              key={i}
+              className={`feedback-carousel__dot ${i === currentPage ? 'feedback-carousel__dot--active' : ''}`}
+              onClick={() => {
+                if (!isTransitioning) {
+                  setIsTransitioning(true);
+                  setCurrentPage(i);
+                  setTimeout(() => setIsTransitioning(false), 300);
+                }
+              }}
+              aria-label={`Ir para página ${i + 1}`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════
+   RESULTS CAROUSEL (NOVO)
+══════════════════════════════════════════════ */
+function ResultsCarousel({ items, itemsPerPage = 3, onImageClick }) {
+  const [currentPage, setCurrentPage] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  
+  const totalPages = Math.max(1, Math.ceil(items.length / itemsPerPage));
+  const startIndex = currentPage * itemsPerPage;
+  const currentItems = items.slice(startIndex, startIndex + itemsPerPage);
+
+  // Preenche com placeholders se necessário
+  const displayItems = [...currentItems];
+  while (displayItems.length < itemsPerPage && displayItems.length < items.length) {
+    displayItems.push({ 
+      id: `placeholder-${displayItems.length}`, 
+      name: null, 
+      pct: 0, 
+      saved: null, 
+      img: null 
+    });
+  }
+
+  const nextPage = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentPage((prev) => (prev + 1) % totalPages);
+    setTimeout(() => setIsTransitioning(false), 300);
+  };
+
+  const prevPage = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
+    setTimeout(() => setIsTransitioning(false), 300);
+  };
+
+  if (items.length === 0) return null;
+
+  return (
+    <div className="results-carousel">
+      <div className="results-carousel__wrapper">
+        {totalPages > 1 && (
+          <button 
+            className="results-carousel__arrow results-carousel__arrow--prev" 
+            onClick={prevPage}
+            aria-label="Anterior"
+          >
+            ‹
+          </button>
+        )}
+        
+        <div className="results-carousel__track">
+          {displayItems.map((item, index) => (
+            <div key={item.id || index} className="results-carousel__slide">
+              {item.img ? (
+                <div className="case" onClick={() => onImageClick?.(item.img)}>
+                  <div className="case__img">
+                    <img src={item.img} alt={item.name} loading="lazy" />
+                    <div className="case__over">Ver →</div>
+                  </div>
+                  <div className="case__body">
+                    <p className="case__name">{item.name}</p>
+                    <div className="case__nums">
+                      <span className="case__saved">{item.saved}</span>
+                    </div>
+                    <div className="case__bar">
+                      <div className="case__fill" style={{ width: `${item.pct}%` }} />
+                    </div>
+                    <p className="case__pct">{item.pct}% economizados</p>
+                  </div>
+                </div>
+              ) : (
+                <div className="case case--placeholder">
+                  <div className="case__body" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '300px' }}>
+                    <span style={{ color: 'var(--muted)', fontSize: '0.8rem' }}>Em breve</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {totalPages > 1 && (
+          <button 
+            className="results-carousel__arrow results-carousel__arrow--next" 
+            onClick={nextPage}
+            aria-label="Próximo"
+          >
+            ›
+          </button>
+        )}
+      </div>
+
+      {totalPages > 1 && (
+        <div className="results-carousel__dots">
+          {Array.from({ length: totalPages }).map((_, i) => (
+            <button
+              key={i}
+              className={`results-carousel__dot ${i === currentPage ? 'results-carousel__dot--active' : ''}`}
+              onClick={() => {
+                if (!isTransitioning) {
+                  setIsTransitioning(true);
+                  setCurrentPage(i);
+                  setTimeout(() => setIsTransitioning(false), 300);
+                }
+              }}
+              aria-label={`Ir para página ${i + 1}`}
+            />
           ))}
         </div>
       )}
@@ -721,7 +893,6 @@ export default function App() {
           </div>
           <Fade delay={0.1}>
             <div className="pillars__close">
-              {/* CORRIGIDO: </p> antes de abrir outro <p> */}
               <p>
                 <strong>Você, que já é cliente Black ou Infinite, saiba que já possui um enorme potencial em suas mãos. Mas, sem a estratégia correta e direcionada, grande parte desse potencial se perde em resgates simples e decisões ineficientes. Com gestão profissional, você viaja em classe executiva investindo o valor de econômica e se hospeda em hotéis 5 estrelas pelo mundo com o valor de 3 ou 4 estrelas. Viajar bem não deveria ser complicado, e não é!</strong>
               </p>
@@ -812,33 +983,20 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── RESULTADOS ── */}
+      {/* ── RESULTADOS (ATUALIZADO COM CARROSSEL) ── */}
       <section className="sec" id="resultados">
         <div className="wrap">
           <Fade className="sec__head">
             <p className="label"></p>
             <h2 className="h2">Alguns resultados de nossos clientes<br /><em></em></h2>
           </Fade>
-          <div className="cases">
-            {CASES.map((c, i) => (
-              <Fade key={i} delay={i * 0.08}>
-                <div className="case" onClick={() => setLightbox(c.img)}>
-                  <div className="case__img">
-                    <img src={c.img} alt={c.name} loading="lazy" />
-                    <div className="case__over">Ver →</div>
-                  </div>
-                  <div className="case__body">
-                    <p className="case__name">{c.name}</p>
-                    <div className="case__nums">
-                      <span className="case__saved">{c.saved}</span>
-                    </div>
-                    <div className="case__bar"><div className="case__fill" style={{ width: `${c.pct}%` }} /></div>
-                    <p className="case__pct">{c.pct}% economizados</p>
-                  </div>
-                </div>
-              </Fade>
-            ))}
-          </div>
+          <Fade delay={0.1}>
+            <ResultsCarousel 
+              items={CASES} 
+              itemsPerPage={3} 
+              onImageClick={(src) => setLightbox(src)} 
+            />
+          </Fade>
         </div>
       </section>
 
