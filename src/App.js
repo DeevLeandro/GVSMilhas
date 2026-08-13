@@ -44,12 +44,35 @@ function Modal({ src, onClose }) {
 }
 
 /* ══════════════════════════════════════════════
-   FEEDBACK CAROUSEL
+   FEEDBACK CAROUSEL (COM RESPONSIVIDADE)
 ══════════════════════════════════════════════ */
-function FeedbackCarousel({ items, itemsPerPage = 3, onImageClick }) {
+function FeedbackCarousel({ items, onImageClick }) {
   const [currentPage, setCurrentPage] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  
+  const [itemsPerPage, setItemsPerPage] = useState(3);
+
+  // Detecta o tamanho da tela e ajusta quantos itens mostrar
+  useEffect(() => {
+    const updateItemsPerPage = () => {
+      if (window.innerWidth <= 480) {
+        setItemsPerPage(1);
+      } else if (window.innerWidth <= 768) {
+        setItemsPerPage(2);
+      } else {
+        setItemsPerPage(3);
+      }
+    };
+    
+    updateItemsPerPage();
+    window.addEventListener('resize', updateItemsPerPage);
+    return () => window.removeEventListener('resize', updateItemsPerPage);
+  }, []);
+
+  // Reset current page when itemsPerPage changes
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [itemsPerPage]);
+
   const totalPages = Math.max(1, Math.ceil(items.length / itemsPerPage));
   const startIndex = currentPage * itemsPerPage;
   const currentItems = items.slice(startIndex, startIndex + itemsPerPage);
@@ -152,12 +175,35 @@ function FeedbackCarousel({ items, itemsPerPage = 3, onImageClick }) {
 }
 
 /* ══════════════════════════════════════════════
-   RESULTS CAROUSEL (NOVO)
+   RESULTS CAROUSEL (COM RESPONSIVIDADE)
 ══════════════════════════════════════════════ */
-function ResultsCarousel({ items, itemsPerPage = 3, onImageClick }) {
+function ResultsCarousel({ items, onImageClick }) {
   const [currentPage, setCurrentPage] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  
+  const [itemsPerPage, setItemsPerPage] = useState(3);
+
+  // Detecta o tamanho da tela e ajusta quantos itens mostrar
+  useEffect(() => {
+    const updateItemsPerPage = () => {
+      if (window.innerWidth <= 480) {
+        setItemsPerPage(1);
+      } else if (window.innerWidth <= 768) {
+        setItemsPerPage(2);
+      } else {
+        setItemsPerPage(3);
+      }
+    };
+    
+    updateItemsPerPage();
+    window.addEventListener('resize', updateItemsPerPage);
+    return () => window.removeEventListener('resize', updateItemsPerPage);
+  }, []);
+
+  // Reset current page when itemsPerPage changes
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [itemsPerPage]);
+
   const totalPages = Math.max(1, Math.ceil(items.length / itemsPerPage));
   const startIndex = currentPage * itemsPerPage;
   const currentItems = items.slice(startIndex, startIndex + itemsPerPage);
@@ -685,12 +731,12 @@ const FEEDBACKS = [
 ];
 
 const PILLARS = [
-  { n: '01', t: 'Análise de perfil',           d: 'Analisaremos sua frequência e estilo de viagens e indicaremos os cartões de crédito e programas ideais para maximizar suas milhas em cada rota.' },
-  { n: '02', t: 'Planejamento de acúmulo',     d: 'Cada destino tem um programa mais vantajoso. Direcionando para o programa certo, sua viagem pode custar apenas a taxa de embarque — e hotéis muito abaixo do valor comercial.' },
-  { n: '03', t: 'Estratégia de multiplicação', d: 'Iremos definir o momento exato de transferências bonificadas e cadastros, inclusive em companhias aéreas mundiais. Aplicando corretamente, dobraremos o seu patrimônio em milhas.' },
-  { n: '04', t: 'Emissões inteligentes',       d: 'Utilizaremos programas internacionais que a maioria desconhece. Muitas vezes não recorremos a milhas nacionais — um dos principais hoje é um programa europeu de altíssimo rendimento.' },
-  { n: '05', t: 'Check-in online',             d: 'Realizamos o check-in online antecipado para você, garantindo os melhores assentos disponíveis e evitando que você precise se preocupar com prazos ou filas. Tudo resolvido de forma rápida e digital.' },
-  { n: '06', t: 'Monitoramento e oportunidades', d: 'Acúmulo contínuo de milhas internacionais com excelente custo por milheiro, com acesso a mais de 60 companhias parceiras no Brasil e no mundo.' },
+  { n: '', t: 'Análise de perfil',           d: 'Analisaremos sua frequência e estilo de viagens e indicaremos os cartões de crédito e programas ideais para maximizar suas milhas em cada rota.' },
+  { n: '', t: 'Planejamento de acúmulo',     d: 'Cada destino tem um programa mais vantajoso. Direcionando para o programa certo, sua viagem pode custar apenas a taxa de embarque — e hotéis muito abaixo do valor comercial.' },
+  { n: '', t: 'Estratégia de multiplicação', d: 'Iremos definir o momento exato de transferências bonificadas e cadastros, inclusive em companhias aéreas mundiais. Aplicando corretamente, dobraremos o seu patrimônio em milhas.' },
+  { n: '', t: 'Emissões inteligentes',       d: 'Utilizaremos programas internacionais que a maioria desconhece. Muitas vezes não recorremos a milhas nacionais — um dos principais hoje é um programa europeu de altíssimo rendimento.' },
+  { n: '', t: 'Check-in online',             d: 'Realizamos o check-in online antecipado para você, garantindo os melhores assentos disponíveis e evitando que você precise se preocupar com prazos ou filas. Tudo resolvido de forma rápida e digital.' },
+  { n: '', t: 'Monitoramento e oportunidades', d: 'Acúmulo contínuo de milhas internacionais com excelente custo por milheiro, com acesso a mais de 60 companhias parceiras no Brasil e no mundo.' },
 ];
 
 export default function App() {
@@ -852,10 +898,10 @@ export default function App() {
           <p className="label">O que entregamos</p>
           <div className="services">
             {[
-              { n: '01', t: 'Gestão de milhas',    d: 'Indicaremos os melhores cartões, transferindo e maximizando seus pontos e milhas, nas melhores janelas, mantendo seu portfólio sempre otimizado.', highlight: true },
-              { n: '02', t: 'Voos Business & First', d: 'Emitimos suas passagens executivas e de primeira classe com o máximo de economia — sem você precisar pesquisar nada.' },
-              { n: '03', t: 'Hotéis de Luxo',      d: 'Reservas nas redes Fairmont, Raffles, Rixos, Mandarin Oriental, Hyatt, Pullman, Sofitel entre outros. Muitos não sabem mais milhas não utilizamos somente para voos.', highlight: true },
-              { n: '04', t: 'Suporte full-service', d: 'Uma equipe dedicada disponível para qualquer necessidade — mudanças de rota, upgrades, novas reservas, novos roteiros ou emergências, sempre com atendimento prioritário.' },
+              { n: '', t: 'Gestão de milhas',    d: 'Indicaremos os melhores cartões, transferindo e maximizando seus pontos e milhas, nas melhores janelas, mantendo seu portfólio sempre otimizado.', highlight: true },
+              { n: '', t: 'Voos Business & First', d: 'Emitimos suas passagens executivas e de primeira classe com o máximo de economia — sem você precisar pesquisar nada.' },
+              { n: '', t: 'Hotéis de Luxo',      d: 'Reservas nas redes Fairmont, Raffles, Rixos, Mandarin Oriental, Hyatt, Pullman, Sofitel entre outros. Muitos não sabem mais milhas não utilizamos somente para voos.', highlight: true },
+              { n: '', t: 'Suporte full-service', d: 'Uma equipe dedicada disponível para qualquer necessidade — mudanças de rota, upgrades, novas reservas, novos roteiros ou emergências, sempre com atendimento prioritário.' },
             ].map((s, i) => (
               <Fade key={i} delay={i * 0.07} className={`service${s.highlight ? ' service--hotel' : ''}`}>
                 <span className="service__n">{s.n}</span>
@@ -983,7 +1029,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── RESULTADOS (ATUALIZADO COM CARROSSEL) ── */}
+      {/* ── RESULTADOS (ATUALIZADO) ── */}
       <section className="sec" id="resultados">
         <div className="wrap">
           <Fade className="sec__head">
@@ -993,7 +1039,6 @@ export default function App() {
           <Fade delay={0.1}>
             <ResultsCarousel 
               items={CASES} 
-              itemsPerPage={3} 
               onImageClick={(src) => setLightbox(src)} 
             />
           </Fade>
@@ -1009,7 +1054,10 @@ export default function App() {
             <p className="h2__sub">Resultados reais de quem confiou na GVS Vip para transformar suas viagens.</p>
           </Fade>
           <Fade delay={0.1}>
-            <FeedbackCarousel items={FEEDBACKS} itemsPerPage={3} onImageClick={(src) => setLightbox(src)} />
+            <FeedbackCarousel 
+              items={FEEDBACKS} 
+              onImageClick={(src) => setLightbox(src)} 
+            />
           </Fade>
         </div>
       </section>
