@@ -711,14 +711,14 @@ const HOTELS = [
 ];
 
 const CASES = [
-  { name: 'Cesar A',            pct: 61, saved: 'R$ 143.739', img: '/images/CesarEconomia.png' },
-  { name: 'Marco C',            pct: 64, saved: 'R$ 414.818', img: '/images/MarcoEconomia.png' },
-  { name: 'Raritom P',          pct: 96, saved: 'R$  95.865', img: '/images/RaritomEconomia.png' },
-  { name: 'Guilherme V',        pct: 72, saved: 'R$ 612.718', img: '/images/GuilhermeEconomia.png' },
-  { name: 'Diego C',            pct: 39, saved: 'R$  59.302', img: '/images/DiegoEconomia.png' },
-  { name: 'Guilherme M',        pct: 73, saved: 'R$  49.179', img: '/images/GuiMallonEconomia.png' },
-  { name: 'Rodrigo C',          pct: 45, saved: 'R$  70.138', img: '/images/RodrigoEconomia.png' },
-  { name: 'Tharsa C',           pct: 47, saved: 'R$  42.319', img: '/images/TharsaEconomia.png' },
+  { name: 'Cesar A',            pct: 61, saved: 'R$ 143.739 (2 viagens)', img: '/images/CesarEconomia.png' },
+  { name: 'Marco C',            pct: 64, saved: 'R$ 414.818 (3 viagens)', img: '/images/MarcoEconomia.png' },
+  { name: 'Raritom P',          pct: 96, saved: 'R$  95.865 (2 viagens)', img: '/images/RaritomEconomia.png' },
+  { name: 'Guilherme V',        pct: 72, saved: 'R$ 612.718 (7 viagens)', img: '/images/GuilhermeEconomia.png' },
+  { name: 'Diego C',            pct: 39, saved: 'R$  59.302 (2 viagens)', img: '/images/DiegoEconomia.png' },
+  { name: 'Guilherme M',        pct: 73, saved: 'R$  49.179 (1 viagens)', img: '/images/GuiMallonEconomia.png' },
+  { name: 'Rodrigo C',          pct: 45, saved: 'R$  70.138 (3 viagens)', img: '/images/RodrigoEconomia.png' },
+  { name: 'Tharsa C',           pct: 47, saved: 'R$  42.319 (1 viagem)', img: '/images/TharsaEconomia.png' },
 ];
 
 const FEEDBACKS = [
